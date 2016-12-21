@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/patternLayout'">
+<head>
+<title>Cadastro de Estilo</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Cadastro de Estilo</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+			<th:block th:replace="layout/fragments/MessageSuccess"></th:block>
+			
+			<form method="POST" th:object="${estilo}"
+				class="form-vertical  js-form-loading">
+				
+				<th:block th:replace="layout/fragments/MessageErrors"></th:block>
+				
+				<div class="row">
+					<div class="col-sm-12 form-group">
+						<label for="estilo">Estilo</label> 
+						<input
+							id="estilo" type="text" class="form-control" th:field="*{nome}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+
+			</form>
+		</div>
+
+		<div th:replace="estilo/cadastroRapidoEstilo :: modal"></div>
+	</section>
+</body>
+</html>

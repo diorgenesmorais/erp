@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+		layout:decorator="'layout/patternLayout'">
+<head>
+	<title>Cadastro de Cliente</title>
+</head>
+<body>	
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>
+					Cadastro de Cliente
+				</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+		
+			<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
+				
+				<div class="row">
+					<div class="col-sm-12 form-group">
+						<label for="nome">Nome</label>
+						<input id="nome" type="text" class="form-control"/>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-4  form-group">
+						<label for="origem">Tipo pessoa</label>
+						<div>
+							<div class="radio  radio-inline">
+								<input type="radio" name="pessoa"> 
+								<label>Física</label>
+							</div>
+							<div class="radio  radio-inline">
+								<input type="radio" name="pessoa"> 
+								<label>Juridica</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-8 form-group">
+						<label for="cpf-cnpj">CPF/CNPJ</label>
+						<input id="cpf-cnpj" type="text" class="form-control" />
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-sm-4  form-group">
+						<label for="telefone">Telefone</label>
+						<input id="telefone" type="text" class="form-control" />
+					</div>
+					
+					<div class="col-sm-8  form-group">
+						<label for="email">E-mail</label>
+						<input id="email" type="text" class="form-control" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-4  form-group">
+						<label for="logradouro">Logradouro</label>
+						<input id="logradouro" type="text" class="form-control" />
+					</div>
+					
+					<div class="col-sm-4  form-group">
+						<label for="numero">Número</label>
+						<input id="numero" type="text" class="form-control" />
+					</div>
+					
+					<div class="col-sm-4  form-group">
+						<label for="complemento">Complemento</label>
+						<input id="complemento" type="text" class="form-control"/>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label for="cep">CEP</label>
+						<input id="cep" type="text" class="form-control" />
+					</div>
+					
+					<div class="col-sm-4 form-group">
+						<label for="estado">Estado</label>
+						<select id="estado" class="form-control">
+							<option value="">Selecione um estado</option>
+							<option value="1">PE</option>
+							<option value="2">SP</option>
+							<option value="3">RJ</option>
+						</select>
+					</div>
+					
+					<div class="col-sm-4 form-group">
+						<label for="cidade">Cidade</label>
+						<select id="cidade" class="form-control" >
+							<option value="">Selecione uma cidade</option>
+							<option value="1">São Lourenço da Mata</option>
+							<option value="2">Camaragibe</option>
+							<option value="3">Recife</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+		
+			</form>
+		</div>
+		
+		<div th:replace="estilo/cadastroRapidoEstilo :: modal"></div>
+	</section>
+</body>
+</html>

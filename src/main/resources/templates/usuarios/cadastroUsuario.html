@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/patternLayout'">
+<head>
+<title>Cadastro de Cliente</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+</head>
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Cadastro de Usuário</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+			<form method="POST" th:object="${cliente}"
+				class="form-vertical  js-form-loading">
+
+				<div class="row">
+					<div class="col-sm-12 form-group">
+						<label for="nome">Nome</label> <input id="nome" type="text"
+							class="form-control" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6 form-group">
+						<label for="email">E-mail</label> <input id="email" type="text"
+							class="form-control" />
+					</div>
+
+					<div class="col-sm-3 form-group">
+						<label for="nascimento">Data de nascimento</label> <input
+							id="nascimento" type="text" class="form-control" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-4  form-group">
+						<label for="email">E-mail</label> <input id="email" type="text"
+							class="form-control" />
+					</div>
+
+					<div class="col-sm-4  form-group">
+						<label for="confirmar">E-mail</label> <input id="confirmar"
+							type="text" class="form-control" />
+					</div>
+
+					<div class="col-sm-4 form-group">
+						<label for="status" class="control-label">Status</label>
+						<div>
+							<input type="checkbox" class="js-status" data-size="small"
+								data-off-color="danger" data-on-text="Ativo"
+								data-off-text="Inativo" />
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-6 form-group">
+						<label for="grupos">Grupos</label>
+						<div class="checkbox">
+							<div class="checkbox checkbox-inline">
+								<input type="checkbox" /> <label>Administrador</label>
+							</div>
+							<div class="checkbox checkbox-inline">
+								<input type="checkbox" /> <label>Vendedor</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+
+			</form>
+		</div>
+
+		<div th:replace="estilo/cadastroRapidoEstilo :: modal"></div>
+	</section>
+
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('js-status').bootstrapSwitch();
+		</script>
+	</th:block>
+</body>
+</html>
