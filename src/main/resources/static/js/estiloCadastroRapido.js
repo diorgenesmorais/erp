@@ -41,7 +41,7 @@ Erp.EstiloCadastroRapido = (function(){
 	}
 	
 	function onErroSalvandoestilo(obj){
-		// objeto Json, representação de DetalhesErro.java
+		// objeto Json, representação de ErrorDetail.java
 		var messageError = obj.responseJSON.responseText;
 		this.containerMessageError.removeClass('hidden');
 		this.containerMessageError.html('<span>' + messageError + '</span>');
