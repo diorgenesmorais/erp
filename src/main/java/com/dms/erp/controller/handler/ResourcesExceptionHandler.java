@@ -1,4 +1,4 @@
-package com.dms.erp.controller.converter.handler;
+package com.dms.erp.controller.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,12 +12,17 @@ import com.dms.erp.model.DetailedError;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 import com.dms.erp.service.exception.ValidationException;
 
+/**
+ * Classe que manipula as exceções do controle
+ * 
+ * @author Diorgenes Morais
+ * @version 1.0.2
+ */
 @ControllerAdvice
 public class ResourcesExceptionHandler {
 
 	@ExceptionHandler(ValidationException.class)
-	public ResponseEntity<DetailedError> handlerValidationException(ValidationException e,
-			HttpServletRequest request) {
+	public ResponseEntity<DetailedError> handlerValidationException(ValidationException e, HttpServletRequest request) {
 
 		DetailedError erro = new DetailedError();
 		erro.setStatus(400L);
@@ -28,7 +33,7 @@ public class ResourcesExceptionHandler {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
-	
+
 	@ExceptionHandler(RegisteredAlreadyException.class)
 	public ResponseEntity<DetailedError> handlerRegisteredAlreadyException(RegisteredAlreadyException e,
 			HttpServletRequest request) {
