@@ -20,13 +20,13 @@ public class ResourcesExceptionHandler {
 			HttpServletRequest request) {
 
 		DetailedError erro = new DetailedError();
-		erro.setStatus(406L);
+		erro.setStatus(400L);
 		erro.setTitulo("Validação");
-		erro.setMensagemDesenvolvedor("http://erros.erp.com/406");
+		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
 		erro.setTimestamp(System.currentTimeMillis());
 		erro.setResponseText(e.getMessage());
 
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(erro);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 	
 	@ExceptionHandler(RegisteredAlreadyException.class)

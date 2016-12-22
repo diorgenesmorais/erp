@@ -27,6 +27,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.dms.erp.controller.CervejasController;
 import com.dms.erp.controller.converter.EstiloConverter;
+import com.dms.erp.thymeleaf.ErpDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -57,13 +58,13 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setTemplateResolver(templateResolver());
 		
 		engine.addDialect(new LayoutDialect());
-		//engine.addDialect(new BrewerDialect());
+		engine.addDialect(new ErpDialect());
 		return engine;
 	}
 
 	private ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);
+		resolver.setApplicationContext(this.applicationContext);
 		resolver.setPrefix("classpath:/templates/");
 		resolver.setSuffix(".html");
 		resolver.setTemplateMode(TemplateMode.HTML);

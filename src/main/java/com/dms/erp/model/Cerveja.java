@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "cerveja")
@@ -63,11 +64,11 @@ public class Cerveja implements Serializable {
 	private Integer quantidadeEstoque;
 
 	@NotNull(message = "A origem é obrigatória")
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Origem origem;
 
 	@NotNull(message = "O sabor é obrigatório")
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Sabor sabor;
 
 	@NotNull(message = "O estilo é obrigatório")
@@ -188,6 +189,10 @@ public class Cerveja implements Serializable {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public String getFotoOrMock() {
+		return !StringUtils.isEmpty(this.foto) ? this.foto : "cerveja-mock.png";
 	}
 
 	@Override
