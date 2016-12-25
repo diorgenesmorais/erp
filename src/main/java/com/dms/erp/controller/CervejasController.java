@@ -14,7 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.model.Origem;
 import com.dms.erp.model.Sabor;
+import com.dms.erp.repository.Cervejas;
 import com.dms.erp.repository.Estilos;
+import com.dms.erp.repository.filter.CervejaFilter;
 import com.dms.erp.service.CadastroCervejaService;
 
 @Controller
@@ -25,6 +27,9 @@ public class CervejasController {
 	private Estilos estilos;
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
+	
+	@Autowired
+	private Cervejas cervejas;
 
 	@GetMapping({ "/novo" })
 	public ModelAndView novo(Cerveja cerveja) {
@@ -47,13 +52,13 @@ public class CervejasController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult resut) {
 		ModelAndView mv = new ModelAndView("cerveja/pesquisaCervejas");
 		mv.addObject("estilos", this.estilos.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 
-		mv.addObject("cervejas", this.cadastroCervejaService.getCervejas());
+		mv.addObject("cervejas", this.cervejas.filtrar(cervejaFilter));
 
 		return mv;
 	}
