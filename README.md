@@ -1,4 +1,6 @@
-Projeto web com cadastro e pesquisa e com inserção de foto.
+Projeto web com cadastro e pesquisa e com inserção de foto de produtos.
+
+Este projeto é baseado no curso de Spring MVC da Algaworks.
 
 Foram utilizados os seguintes frameworks e bibliotecas:
 Spring web MVC 4.3.3.RELEASE;
@@ -14,3 +16,4 @@ Handlebars 4.0.5;
 
 Flyway 4.0.2 - usado na migração do banco de dados
 
+Documentação (Javadoc): fora do padrão, voltada ao aprendizado, anotações, dicas.
