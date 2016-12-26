@@ -3,6 +3,8 @@ package com.dms.erp.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +24,12 @@ import com.dms.erp.service.CadastroCervejaService;
 @Controller
 @RequestMapping({ "/cervejas" })
 public class CervejasController {
-	
+
 	@Autowired
 	private Estilos estilos;
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
-	
+
 	@Autowired
 	private Cervejas cervejas;
 
@@ -51,14 +53,29 @@ public class CervejasController {
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
 
+	/**
+	 * Método utilizado para página de pesquisa.
+	 * 
+	 * @param cervejaFilter
+	 *            objeto submetido
+	 * @param result
+	 *            Necessário para submissão de parâmetros via GET
+	 * @param pageable
+	 *            Uso de paginação na consulta (necessita da anotação
+	 *            {@code EnableSpringDataWebSupport} na classe {@code WebConfig}
+	 *            )
+	 * @return {@code ModelAndView}
+	 * @see com.dms.erp.config.WebConfig
+	 */
 	@GetMapping
-	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult resut) {
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result,
+			@PageableDefault(size = 2) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("cerveja/pesquisaCervejas");
 		mv.addObject("estilos", this.estilos.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 
-		mv.addObject("cervejas", this.cervejas.filtrar(cervejaFilter));
+		mv.addObject("cervejas", this.cervejas.filtrar(cervejaFilter, pageable));
 
 		return mv;
 	}

@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -32,14 +33,23 @@ public class CervejasImpl implements CervejasQueries {
 	private EntityManager manager;
 
 	/*
-	 * necessário para não gerar java.lang.IllegalStateException: No
-	 * transactional EntityManager available
+	 * @thows java.lang.IllegalStateException: No transactional EntityManager
+	 * available if Transactional#readOnly = false, if you work with Session use
+	 * true
 	 */
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cerveja> filtrar(CervejaFilter filter) {
+	public List<Cerveja> filtrar(CervejaFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+
+		int pageNumber = pageable.getPageNumber();
+		int maxResult = pageable.getPageSize();
+		int firstResult = pageNumber * maxResult;
+
+		criteria.setFirstResult(firstResult);
+		criteria.setMaxResults(maxResult);
+
 		if (filter != null) {
 			if (!StringUtils.isEmpty(filter.getSku())) {
 				criteria.add(Restrictions.eq("sku", filter.getSku()));
