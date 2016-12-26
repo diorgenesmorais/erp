@@ -15,11 +15,26 @@ import org.springframework.util.StringUtils;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.repository.filter.CervejaFilter;
 
+/**
+ * {@code CervejasImpl} é uma implementação de um repositório personalizado.
+ * Usando a conversão de nome, motivo de usar {@literal Impl} no nome, ver
+ * documentação do método repositoryImplentationPostfix de
+ * {@code EnableJpaRepositories}:
+ * 
+ * @see org.springframework.data.jpa.repository.config.EnableJpaRepositories#repositoryImplementationPostfix()
+ * 
+ * @author Diorgenes Morais
+ *
+ */
 public class CervejasImpl implements CervejasQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
 
+	/*
+	 * necessário para não gerar java.lang.IllegalStateException: No
+	 * transactional EntityManager available
+	 */
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	@Override

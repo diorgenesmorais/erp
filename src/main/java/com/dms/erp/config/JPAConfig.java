@@ -18,8 +18,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.repository.Cervejas;
 
+/**
+ * Classe de configuração do JPA. Usando repositoryImplementationPostfix =
+ * "Impl" no {@code EnableJpaRepositories} só para documentação
+ * 
+ * @see com.dms.erp.repository.helper.cerveja.CervejasImpl
+ * 
+ * @author Diorgenes Morais
+ *
+ */
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
+@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false, repositoryImplementationPostfix = "Impl")
 @EnableTransactionManagement
 public class JPAConfig {
 
