@@ -1,14 +1,15 @@
 package com.dms.erp.repository.helper.cerveja;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -40,7 +41,7 @@ public class CervejasImpl implements CervejasQueries {
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cerveja> filtrar(CervejaFilter filter, Pageable pageable) {
+	public Page<Cerveja> filtrar(CervejaFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
 
 		int pageNumber = pageable.getPageNumber();
@@ -50,6 +51,11 @@ public class CervejasImpl implements CervejasQueries {
 		criteria.setFirstResult(firstResult);
 		criteria.setMaxResults(maxResult);
 
+		addFilter(filter, criteria);
+		return new PageImpl<>(criteria.list(), pageable, totalRows(filter));
+	}
+
+	private void addFilter(CervejaFilter filter, Criteria criteria) {
 		if (filter != null) {
 			if (!StringUtils.isEmpty(filter.getSku())) {
 				criteria.add(Restrictions.eq("sku", filter.getSku()));
@@ -81,7 +87,13 @@ public class CervejasImpl implements CervejasQueries {
 				criteria.add(Restrictions.le("valor", filter.getValorAte()));
 			}
 		}
-		return criteria.list();
+	}
+
+	private long totalRows(CervejaFilter filter) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+		addFilter(filter, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (long) criteria.uniqueResult();
 	}
 
 }

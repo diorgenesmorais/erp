@@ -75,7 +75,7 @@ public class CervejasController {
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 
-		mv.addObject("cervejas", this.cervejas.filtrar(cervejaFilter, pageable));
+		mv.addObject("pagina", this.cervejas.filtrar(cervejaFilter, pageable));
 
 		return mv;
 	}
