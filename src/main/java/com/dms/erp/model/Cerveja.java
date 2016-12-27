@@ -24,6 +24,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
+import com.dms.erp.validation.SKU;
+
 @Entity
 @Table(name = "cerveja")
 public class Cerveja implements Serializable {
@@ -34,6 +36,7 @@ public class Cerveja implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@SKU
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku;
 
