@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/patternLayout'" xmlns:erp="erp.system">
+	layout:decorator="'layout/patternLayout'" 
+	xmlns:erp="erp.system">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -101,20 +102,12 @@
 						<tr>
 							<th class="table-cervejas-col-foto"></th>
 							<th class="table-cervejas-col-sku">
-								<a th:href="${pagina.urlOrderBy('sku')}">SKU
-									<span class="dropup" th:remove="${not pagina.isAscending('sku')} ? tag"
-										th:if="${pagina.isOrder('sku')}" >
-										<span class="caret"></span>
-									</span>
-								</a>
+								<!-- Utilizando uma tag customizada ao invés de usar um th:block -->
+								<!-- <th:block th:replace="layout/fragments/Ordination :: order (${pagina}, 'sku', 'SKU')"></th:block> -->
+								<erp:order page="${pagina}" field="sku" text="SKU" />
 							</th>
 							<th class="table-cervejas-col-nome">
-								<a th:href="${pagina.urlOrderBy('nome')}">Nome
-									<span class="dropup" th:remove="${not pagina.isAscending('nome')} ? tag"
-										th:if="${pagina.isOrder('nome')}" >
-										<span class="caret"></span>
-									</span>
-								</a>
+								<erp:order page="${pagina}" field="nome" text="Nome" />
 							</th>
 							<th class="table-cervejas-col-estilo">Estilo</th>
 							<th class="table-cervejas-col-origem">Origem</th>

@@ -9,6 +9,7 @@ import org.thymeleaf.standard.StandardDialect;
 
 import com.dms.erp.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import com.dms.erp.thymeleaf.processor.MessageElementTagProcessor;
+import com.dms.erp.thymeleaf.processor.OrderElementTagProcessor;
 
 
 public class ErpDialect extends AbstractProcessorDialect {
@@ -22,6 +23,7 @@ public class ErpDialect extends AbstractProcessorDialect {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));
+		processadores.add(new OrderElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 

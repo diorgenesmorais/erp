@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<th:block th:fragment="order (page, property, text)">
+		<a th:href="${page.urlOrderBy(property)}"><span th:text="${text}"></span>
+			<span class="dropup" th:remove="${not page.isAscending(property)} ? tag"
+				th:if="${page.isOrder(property)}" >
+				<span class="caret"></span>
+			</span>
+		</a>
+	</th:block>
+</body>
+</html>
