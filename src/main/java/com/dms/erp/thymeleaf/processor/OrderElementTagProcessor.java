@@ -39,6 +39,10 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		 */
 		IAttribute page = tag.getAttribute("page");
 		IAttribute field = tag.getAttribute("field");
+		/*
+		 * Caso seja necessário parssar um nome com espaçamento passar entre
+		 * aspas simples ('Nome da tag').
+		 */
 		IAttribute text = tag.getAttribute("text");
 
 		IModel model = modelFactory.createModel();
