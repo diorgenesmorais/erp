@@ -27,8 +27,8 @@
 		<!-- Hibernate Validator -->
 		<hibernate-validator.version>5.3.0.Final</hibernate-validator.version>
 
-		<!-- Thymeleaf - Layout Dialect -->
-		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		<!-- Thymeleaf - Layout Dialect: update of 2.0.0 to -->
+		<thymeleaf-layout-dialect.version>2.1.2</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
@@ -37,13 +37,15 @@
 		<!-- JPA / Hibernate -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		<spring-data-jpa.version>1.10.5.RELEASE</spring-data-jpa.version>
-		
+
 		<!-- Jackson JSON -->
 		<jackson-core.version>2.7.5</jackson-core.version>
-		
+
 		<!-- thumbnailator - Gerar Thumbnail -->
- 		<!-- https://github.com/coobird/thumbnailator -->
+		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
+		
+		<httpclient.version>4.5.2</httpclient.version>
 	</properties>
 
 	<build>
@@ -184,14 +186,14 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring-data-jpa.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-core.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- thumbnailator - Gerar Thumbnail -->
 		<dependency>
 			<groupId>net.coobird</groupId>
@@ -199,5 +201,13 @@
 			<version>${thumbnailator.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 </project>

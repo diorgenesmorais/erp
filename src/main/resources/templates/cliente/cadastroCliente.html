@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
-		layout:decorator="'layout/patternLayout'">
+		layout:decorate="layout/patternLayout">
 <head>
 	<title>Cadastro de Cliente</title>
 </head>
@@ -32,12 +32,14 @@
 						<label for="origem">Tipo pessoa</label>
 						<div>
 							<div class="radio  radio-inline">
-								<input type="radio" name="pessoa"> 
-								<label>Física</label>
+								<input type="radio" class="js-radio-tipo-pessoa" id="id_fisica" name="pessoa" 
+									data-doc-type="CPF" data-mask-pattern="000.000.000-00" > 
+								<label class="control-label" for="id_fisica">Física</label>
 							</div>
 							<div class="radio  radio-inline">
-								<input type="radio" name="pessoa"> 
-								<label>Juridica</label>
+								<input type="radio" class="js-radio-tipo-pessoa" id="id_juridica" name="pessoa" 
+									data-doc-type="CNPJ" data-mask-pattern="00.000.000/000-00" > 
+								<label class="control-label" for="id_juridica">Juridica</label>
 							</div>
 						</div>
 					</div>
@@ -51,7 +53,7 @@
 				<div class="row">
 					<div class="col-sm-4  form-group">
 						<label for="telefone">Telefone</label>
-						<input id="telefone" type="text" class="form-control" />
+						<input id="telefone" type="text" class="form-control js-phone-number" />
 					</div>
 					
 					<div class="col-sm-8  form-group">
