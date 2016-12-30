@@ -1,22 +1,37 @@
 package com.dms.erp.controller.page;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageWrapper<T> {
 
 	private Page<T> page;
 	private UriComponentsBuilder uriBuilder;
+	private URIBuilder uriBuild;
 
 	public PageWrapper(Page<T> page, HttpServletRequest request) {
 		this.page = page;
-		this.uriBuilder = ServletUriComponentsBuilder.fromRequest(request);
+		// this.uriBuilder = ServletUriComponentsBuilder.fromRequest(request);
+		String httpUrl = request.getRequestURL()
+				.append(request.getQueryString() != null ? "?" + request.getQueryString() : "").toString()
+				.replaceAll("\\+", "%20");
+
+		this.uriBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
+		try {
+			this.uriBuild = new URIBuilder(request.getRequestURL()
+					.append(request.getQueryString() != null ? "?" + request.getQueryString() : "").toString());
+			uriBuild.addParameter("sort", "nome,asc");
+			System.out.println(">>>> URI >>>> " + uriBuild.toString());
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Erro de sintax na URI", e);
+		}
 	}
 
 	public List<T> getContent() {
@@ -57,12 +72,13 @@ public class PageWrapper<T> {
 	}
 
 	public String urlOrderBy(String property) {
-		UriComponentsBuilder uriComponentBuilder = UriComponentsBuilder
-				.fromUriString(uriBuilder.build(true).encode().toUriString());
+		UriComponentsBuilder uriComponentBuilder = UriComponentsBuilder.fromUriString(uriBuilder.build().toString());
 
 		String sortValue = String.format("%s,%s", property, reverseOrder(property));
 
-		return uriComponentBuilder.replaceQueryParam("sort", sortValue).build(true).encode().toUriString();
+		String uri = uriComponentBuilder.replaceQueryParam("sort", sortValue).build(true).encode().toUriString();
+
+		return uri;
 	}
 
 	/*
