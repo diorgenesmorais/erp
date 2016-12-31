@@ -66,8 +66,11 @@ public class CervejasController {
 	 *            Uso de paginação na consulta (necessita da anotação
 	 *            {@code EnableSpringDataWebSupport} na classe {@code WebConfig}
 	 *            )
+	 * @param httpServletRequest
+	 *            Informações da requisição.
 	 * @return {@code ModelAndView}
-	 * @see com.dms.erp.config.WebConfig
+	 * @see com.dms.erp.config.WebConfig é necessário anotar com
+	 *      {@code EnableSpringDataWebSupport} para usar paginação.
 	 */
 	@GetMapping
 	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result,
