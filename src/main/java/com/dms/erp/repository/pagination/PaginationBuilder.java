@@ -16,13 +16,20 @@ public class PaginationBuilder {
 	private Criteria criteria;
 	private Pageable pageable;
 
-	public PaginationBuilder(Criteria criteria, Pageable pageable) {
+	/**
+	 * 
+	 * @param criteria
+	 *            Receiving as reference the object {@code Criteria}
+	 * @param pageable
+	 *            To get information of Pageable.
+	 */
+	public PaginationBuilder(Criteria criteria, final Pageable pageable) {
 		this.criteria = criteria;
 		this.pageable = pageable;
-		this.setLimit();
+		this.limitConfiguration();
 	}
 
-	private void setLimit() {
+	private void limitConfiguration() {
 		int pageNumber = this.pageable.getPageNumber();
 		int maxResult = this.pageable.getPageSize();
 		int firstResult = pageNumber * maxResult;
@@ -33,7 +40,7 @@ public class PaginationBuilder {
 	/**
 	 * Build with ordination.
 	 * 
-	 * @return {@code Criteria}
+	 * @return {@code this}
 	 */
 	public PaginationBuilder withOrdination() {
 		Sort sort = this.pageable.getSort();
@@ -45,6 +52,11 @@ public class PaginationBuilder {
 		return this;
 	}
 
+	/**
+	 * Returns the configured {@code Criteria} object.
+	 * 
+	 * @return {@code Criteria}
+	 */
 	public Criteria builder() {
 		return this.criteria;
 	}
