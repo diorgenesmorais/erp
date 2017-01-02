@@ -58,8 +58,8 @@ public class CervejasImpl implements CervejasQueries {
 			}
 
 			if (!StringUtils.isEmpty(filter.getNome())) {
-				// replace " " para %
-				criteria.add(Restrictions.ilike("nome", filter.getNome().replaceAll(" ", "%"), MatchMode.ANYWHERE));
+				// replace "<space>" para %
+				criteria.add(Restrictions.ilike("nome", filter.getNome().replaceAll("\u0020", "\u0025"), MatchMode.ANYWHERE));
 			}
 
 			if (filter.getEstilo() != null && filter.getEstilo().getId() != null) {
