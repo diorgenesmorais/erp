@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+		xmlns:data="http://www.thymeleaf.org/extras/data"
 		layout:decorate="layout/patternLayout">
 <head>
 	<title>Cadastro de Cliente</title>
@@ -31,16 +32,13 @@
 					<div class="col-sm-4  form-group">
 						<label for="origem">Tipo pessoa</label>
 						<div>
-							<div class="radio  radio-inline">
-								<input type="radio" class="js-radio-tipo-pessoa" id="id_fisica" name="pessoa" 
-									data-doc-type="CPF" data-mask-pattern="000.000.000-00" > 
-								<label class="control-label" for="id_fisica">Física</label>
-							</div>
-							<div class="radio  radio-inline">
-								<input type="radio" class="js-radio-tipo-pessoa" id="id_juridica" name="pessoa" 
-									data-doc-type="CNPJ" data-mask-pattern="00.000.000/000-00" > 
-								<label class="control-label" for="id_juridica">Juridica</label>
-							</div>
+							<th:block th:each="typePeople : ${typesOfPeople}" >
+								<div class="radio  radio-inline">
+									<input type="radio" class="js-radio-tipo-pessoa" th:id="|id_${typePeople}|" name="pessoa" 
+										data:doc-type="${typePeople.document}" data:mask-pattern="${typePeople.mask}" > 
+									<label class="control-label" th:for="|id_${typePeople}|" th:text="${typePeople.decription}" ></label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 					
@@ -89,9 +87,7 @@
 						<label for="estado">Estado</label>
 						<select id="estado" class="form-control">
 							<option value="">Selecione um estado</option>
-							<option value="1">PE</option>
-							<option value="2">SP</option>
-							<option value="3">RJ</option>
+							<option th:each="state : ${states}" th:value="${state}" th:text="${state.estado}" ></option>
 						</select>
 					</div>
 					

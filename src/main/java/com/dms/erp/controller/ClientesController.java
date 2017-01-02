@@ -5,13 +5,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dms.erp.model.TipoPessoa;
+import com.dmsystem.useful.UFBrasil;
+
 @Controller
 @RequestMapping("/cliente")
 public class ClientesController {
 
 	@GetMapping("/novo")
 	public ModelAndView novo() {
-		return new ModelAndView("cliente/cadastroCliente");
+		ModelAndView mv = new ModelAndView("cliente/cadastroCliente");
+		mv.addObject("typesOfPeople", TipoPessoa.values());
+		mv.addObject("states", UFBrasil.values());
+		
+		return mv;
 	}
 
 }

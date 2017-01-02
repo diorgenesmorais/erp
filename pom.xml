@@ -44,6 +44,12 @@
 		<!-- thumbnailator - Gerar Thumbnail -->
 		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
+
+		<!-- Thymeleaf extras data attribute -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+
+		<!-- Lib útil -->
+		<helpful-lib.version>1.0.2</helpful-lib.version>
 		
 		<httpclient.version>4.5.2</httpclient.version>
 	</properties>
@@ -202,6 +208,21 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Thymeleaf extras data attribute -->
+		<dependency>
+			<groupId>com.github.mxab.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-data-attribute</artifactId>
+			<version>${thymeleaf-extras-data-attribute.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- lib helpful -->
+		<dependency>
+			<groupId>com.dmsystem.useful</groupId>
+			<artifactId>helpful-lib</artifactId>
+			<version>${helpful-lib.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
