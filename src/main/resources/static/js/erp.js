@@ -46,18 +46,18 @@ Erp.MaskPhoneNumber = (function() {
 	return MaskPhoneNumber;
 }());
 
-Erp.MaskCpfCnpj = (function(){
-	function MaskCpfCnpj(){
+Erp.MaskCpfCnpj = (function() {
+	function MaskCpfCnpj() {
 		this.radioTipoPessoa = $('.js-radio-tipo-pessoa');
 		this.labelCpfCnpj = $('[for=cpf-cnpj]');
 		this.inputCpfCnpj = $('#cpf-cnpj');
 	}
-	
-	MaskCpfCnpj.prototype.init = function(){
+
+	MaskCpfCnpj.prototype.init = function() {
 		this.radioTipoPessoa.on('change', onTipoPessoaChanged.bind(this));
 	}
-	
-	function onTipoPessoaChanged(event){
+
+	function onTipoPessoaChanged(event) {
 		var tipoPessoa = $(event.currentTarget);
 		this.labelCpfCnpj.text(tipoPessoa.data('doc-type'));
 		// At first I tried to use a reserved word "mask" and generated an error
@@ -65,17 +65,28 @@ Erp.MaskCpfCnpj = (function(){
 		this.inputCpfCnpj.val('');
 		this.inputCpfCnpj.removeAttr('disabled');
 	}
-	
+
 	return MaskCpfCnpj;
 }());
 
-$(function() {
-	var formatter = new Erp.Formatter();
-	formatter.enable();
+Erp.MaskCep = (function() {
+	function MaskCep() {
+		this.inputCep = $('#cep');
+	}
 
-	var phoneNumber = new Erp.MaskPhoneNumber();
-	phoneNumber.init();
-	
-	var maskCpfCnpj = new Erp.MaskCpfCnpj();
-	maskCpfCnpj.init();
+	MaskCep.prototype.init = function() {
+		this.inputCep.mask("00.000-000");
+	}
+
+	return MaskCep;
+}());
+
+$(function() {
+	new Erp.Formatter().enable();
+
+	new Erp.MaskPhoneNumber().init();
+
+	new Erp.MaskCpfCnpj().init();
+
+	new Erp.MaskCep().init();
 });
