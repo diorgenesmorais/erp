@@ -1,0 +1,1 @@
+ALTER TABLE cidade CHANGE COLUMN nome nome varchar(40) NOT NULL;
