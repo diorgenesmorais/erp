@@ -95,9 +95,7 @@
 						<label for="cidade">Cidade</label>
 						<select id="cidade" class="form-control" >
 							<option value="">Selecione uma cidade</option>
-							<option value="1">São Lourenço da Mata</option>
-							<option value="2">Camaragibe</option>
-							<option value="3">Recife</option>
+							<option th:each="cidade : ${cidades}" th:value="${cidade.id}" th:text="${cidade.nome}" ></option>
 						</select>
 					</div>
 				</div>
