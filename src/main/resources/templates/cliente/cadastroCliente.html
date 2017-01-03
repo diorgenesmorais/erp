@@ -113,5 +113,9 @@
 		
 		<div th:replace="estilo/cadastroRapidoEstilo :: modal"></div>
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/cliente_combo_cidade.js}"></script>
+	</th:block>
 </body>
 </html>
