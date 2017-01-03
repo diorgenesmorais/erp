@@ -9,7 +9,7 @@ import com.dms.erp.model.TipoPessoa;
 import com.dmsystem.useful.UFBrasil;
 
 @Controller
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClientesController {
 
 	@GetMapping("/novo")

@@ -8,10 +8,10 @@
 	</Appenders>
 	
 	<Loggers>
-		<Logger name="com.dmsystem.erp" level="debug"/>
+		<Logger name="com.dms.erp" level="debug"/>
 		<Logger name="org.hibernate.SQL" level="debug"/>
 	
-		<Root level="error">
+		<Root level="info">
 			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>
