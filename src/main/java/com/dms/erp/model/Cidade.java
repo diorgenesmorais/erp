@@ -26,6 +26,15 @@ public class Cidade implements Serializable {
 	@Column(length = 40)
 	private String nome;
 
+	/*
+	 * Se estado fosse um relacionamento no banco seria:
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY) e devido a requisição saber desse
+	 * relacionamento o Jackson por padrão iria solicitar que fosse carregado
+	 * também o estado, por isso também seria necessário anotar com:
+	 * 
+	 * @JsonIgnore se não seria lançado a LazyInitializationException.
+	 */
 	@Enumerated(EnumType.STRING)
 	private UFBrasil estado;
 

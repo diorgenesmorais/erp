@@ -93,10 +93,15 @@
 					
 					<div class="col-sm-4 form-group">
 						<label for="cidade">Cidade</label>
-						<select id="cidade" class="form-control" >
-							<option value="">Selecione uma cidade</option>
-							<option th:each="cidade : ${cidades}" th:value="${cidade.id}" th:text="${cidade.nome}" ></option>
-						</select>
+						<div class="bw-field-action" >
+							<select id="cidade" class="form-control" data:url="@{/cidades}" >
+								<!-- <option value="">Selecione uma cidade</option> -->
+								<!-- <option th:each="cidade : ${cidades}" th:value="${cidade.id}" th:text="${cidade.nome}" ></option> -->
+							</select>
+							<div class="bw-field-action__icon js-img-loading" style="display: none" >
+								<img alt="loading" th:src="@{/images/mini-loading.gif}">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
