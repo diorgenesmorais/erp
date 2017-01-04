@@ -55,17 +55,24 @@ Erp.MaskCpfCnpj = (function() {
 
 	MaskCpfCnpj.prototype.init = function() {
 		this.radioTipoPessoa.on('change', onTipoPessoaChanged.bind(this));
+		var tipoPessoaSelected = this.radioTipoPessoa.filter(':checked')[0];
+		if(tipoPessoaSelected){
+			applyMask.call(this, $(tipoPessoaSelected));
+		}
 	}
 
 	function onTipoPessoaChanged(event) {
 		var tipoPessoa = $(event.currentTarget);
-		this.labelCpfCnpj.text(tipoPessoa.data('doc-type'));
-		// At first I tried to use a reserved word "mask" and generated an error
-		this.inputCpfCnpj.mask(tipoPessoa.data('mask-pattern'));
+		applyMask.call(this, tipoPessoa);
 		this.inputCpfCnpj.val('');
-		this.inputCpfCnpj.removeAttr('disabled');
 	}
 
+	function applyMask(tipoPessoaSelected){
+		this.labelCpfCnpj.text(tipoPessoaSelected.data('doc-type'));
+		// At first I tried to use a reserved word "mask" and generated an error
+		this.inputCpfCnpj.mask(tipoPessoaSelected.data('mask-pattern'));
+		this.inputCpfCnpj.removeAttr('disabled');
+	}
 	return MaskCpfCnpj;
 }());
 

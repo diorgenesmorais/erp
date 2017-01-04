@@ -2,7 +2,8 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
 		xmlns:data="http://www.thymeleaf.org/extras/data"
-		layout:decorate="~{layout/patternLayout}">
+		layout:decorate="~{layout/patternLayout}"
+		xmlns:erp="erp.system">
 <head>
 	<title>Cadastro de Cliente</title>
 </head>
@@ -19,22 +20,24 @@
 
 		<div class="container-fluid">
 		
-			<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
+			<form method="POST" th:object="${cliente}" th:action="@{/clientes/novo}" class="form-vertical  js-form-loading">
+				<erp:message />
 				
 				<div class="row">
-					<div class="col-sm-12 form-group">
-						<label for="nome">Nome</label>
-						<input id="nome" type="text" class="form-control"/>
+					<div class="col-sm-12 form-group bw-riquerid" erp:classforerror="nome">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4  form-group">
-						<label for="origem">Tipo pessoa</label>
+					<div class="col-sm-4  form-group" erp:classforerror="tipoPessoa">
+						<label for="origem" class="control-label">Tipo pessoa</label>
 						<div>
 							<th:block th:each="typePeople : ${typesOfPeople}" >
 								<div class="radio  radio-inline">
-									<input type="radio" class="js-radio-tipo-pessoa" th:id="|id_${typePeople}|" name="pessoa" 
+									<input type="radio" class="js-radio-tipo-pessoa" th:id="|id_${typePeople}|" 
+										th:field="*{tipoPessoa}" th:value="${typePeople}"
 										data:doc-type="${typePeople.document}" data:mask-pattern="${typePeople.mask}" > 
 									<label class="control-label" th:for="|id_${typePeople}|" th:text="${typePeople.decription}" ></label>
 								</div>
@@ -42,50 +45,50 @@
 						</div>
 					</div>
 					
-					<div class="col-sm-8 form-group">
-						<label for="cpf-cnpj">CPF/CNPJ</label>
-						<input id="cpf-cnpj" type="text" class="form-control" />
+					<div class="col-sm-8 form-group bw-required" erp:classforerror="cpfOrCnpj">
+						<label for="cpf-cnpj" class="control-label">CPF/CNPJ</label>
+						<input id="cpf-cnpj" type="text" class="form-control" disabled th:field="*{cpfOrCnpj}" />
 					</div>
 				</div>
 		
 				<div class="row">
 					<div class="col-sm-4  form-group">
 						<label for="telefone">Telefone</label>
-						<input id="telefone" type="text" class="form-control js-phone-number" />
+						<input id="telefone" type="text" class="form-control js-phone-number" th:field="*{telefone}" />
 					</div>
 					
-					<div class="col-sm-8  form-group">
-						<label for="email">E-mail</label>
-						<input id="email" type="text" class="form-control" />
+					<div class="col-sm-8  form-group" erp:classforerror="email" >
+						<label for="email" class="control-label" >E-mail</label>
+						<input id="email" type="text" class="form-control" th:field="*{email}" />
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-sm-4  form-group">
 						<label for="logradouro">Logradouro</label>
-						<input id="logradouro" type="text" class="form-control" />
+						<input id="logradouro" type="text" class="form-control" th:field="*{endereco.logradouro}" />
 					</div>
 					
 					<div class="col-sm-4  form-group">
 						<label for="numero">Número</label>
-						<input id="numero" type="text" class="form-control" />
+						<input id="numero" type="text" class="form-control" th:field="*{endereco.numero}" />
 					</div>
 					
 					<div class="col-sm-4  form-group">
 						<label for="complemento">Complemento</label>
-						<input id="complemento" type="text" class="form-control"/>
+						<input id="complemento" type="text" class="form-control" th:field="*{endereco.complemento}" />
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="cep">CEP</label>
-						<input id="cep" type="text" class="form-control" />
+						<input id="cep" type="text" class="form-control" th:field="*{endereco.cep}" />
 					</div>
 					
 					<div class="col-sm-4 form-group">
 						<label for="estado">Estado</label>
-						<select id="estado" class="form-control">
+						<select id="estado" class="form-control" th:field="*{endereco.estado}">
 							<option value="">Selecione um estado</option>
 							<option th:each="state : ${states}" th:value="${state}" th:text="${state.estado}" ></option>
 						</select>
@@ -94,9 +97,8 @@
 					<div class="col-sm-4 form-group">
 						<label for="cidade">Cidade</label>
 						<div class="bw-field-action" >
-							<select id="cidade" class="form-control" data:url="@{/cidades}" >
-								<!-- <option value="">Selecione uma cidade</option> -->
-								<!-- <option th:each="cidade : ${cidades}" th:value="${cidade.id}" th:text="${cidade.nome}" ></option> -->
+							<input type="hidden" id="inputHiddenCidadeSelected" th:value="*{endereco.cidade} != null ? *{endereco.cidade.id}" />
+							<select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{endereco.cidade}" >
 							</select>
 							<div class="bw-field-action__icon js-img-loading" style="display: none" >
 								<img alt="loading" th:src="@{/images/mini-loading.gif}">

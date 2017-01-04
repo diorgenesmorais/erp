@@ -23,14 +23,23 @@ Erp.ComboCidade = (function() {
 		this.comboEstado = comboEstado;
 		this.combo = $('#cidade');
 		this.imgLoading = $('.js-img-loading');
+		this.inputHiddenCidadeSelected = $('#inputHiddenCidadeSelected');
 	}
 
 	ComboCidade.prototype.init = function() {
 		reset.call(this);
 		this.comboEstado.on('alterado', onEstadoChange.bind(this));
+		// se ocorrer um erro de validação para manter o combo cidade preenchido
+		var estado = this.comboEstado.combo.val();
+		initCidade.call(this, estado);
 	}
 
 	function onEstadoChange(event, estado) {
+		this.inputHiddenCidadeSelected.val('');
+		initCidade.call(this, estado);
+	}
+
+	function initCidade(estado){
 		if (estado) {
 			var resposta = $.ajax({
 				url : this.combo.data('url'),
@@ -48,7 +57,7 @@ Erp.ComboCidade = (function() {
 			reset.call(this);
 		}
 	}
-
+	
 	function requestInit() {
 		reset.call(this);
 		this.imgLoading.show();
@@ -66,6 +75,11 @@ Erp.ComboCidade = (function() {
 		});
 		this.combo.html(options.join(''));
 		this.combo.removeAttr('disabled');
+		
+		var idCidadeSelected = this.inputHiddenCidadeSelected.val();
+		if(idCidadeSelected){
+			this.combo.val(idCidadeSelected);
+		}
 	}
 
 	function reset() {
@@ -80,5 +94,6 @@ $(function(){
 	var comboEstado = new Erp.ComboEstado();
 	comboEstado.init();
 
-	new Erp.ComboCidade(comboEstado).init();
+	var comboCidade = new Erp.ComboCidade(comboEstado);
+	comboCidade.init();
 });

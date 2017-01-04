@@ -11,9 +11,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import com.dms.erp.model.validation.ClienteGroupSeguenceProvider;
+import com.dms.erp.model.validation.group.CnpjGroup;
+import com.dms.erp.model.validation.group.CpfGroup;
 
 @Entity
 @Table(name = "cliente")
+@GroupSequenceProvider(ClienteGroupSeguenceProvider.class)
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 3534895992732389937L;
@@ -22,19 +34,29 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "Nome é obrigatório")
 	@Column(length = 64)
 	private String nome;
 
+	@NotNull(message = "Tipo pessoa é obrigatorio")
 	@Enumerated(EnumType.STRING)
 	@Column(length = 8, name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
 
+	/*
+	 * devido ao GroupSequenceProvider as anotações CPF e CNPJ só seram
+	 * validadas após as outras validações passarem na validação.
+	 */
+	@NotBlank(message = "CPF/CNPJ é obrigatório")
+	@CPF(groups = { CpfGroup.class })
+	@CNPJ(groups = { CnpjGroup.class })
 	@Column(length = 14, name = "cpf_cnpj")
 	private String cpfOrCnpj;
 
 	@Column(length = 11)
 	private String telefone;
 
+	@Email(message = "E-mail inválido")
 	@Column(length = 64)
 	private String email;
 
