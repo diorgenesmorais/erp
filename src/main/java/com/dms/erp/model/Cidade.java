@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.dms.useful.UFBrasil;
+
 @Entity
 @Table(name = "cidade")
 public class Cidade implements Serializable {

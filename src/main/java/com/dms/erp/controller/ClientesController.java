@@ -13,9 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.model.Cliente;
 import com.dms.erp.model.TipoPessoa;
-import com.dms.erp.model.UFBrasil;
 import com.dms.erp.service.CadastroClienteService;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
+import com.dms.useful.UFBrasil;
 
 @Controller
 @RequestMapping("/clientes")
