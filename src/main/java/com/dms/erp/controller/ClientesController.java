@@ -1,8 +1,11 @@
 package com.dms.erp.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dms.erp.controller.page.PageWrapper;
 import com.dms.erp.model.Cliente;
 import com.dms.erp.model.TipoPessoa;
+import com.dms.erp.repository.Clientes;
+import com.dms.erp.repository.filter.ClienteFilter;
 import com.dms.erp.service.CadastroClienteService;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 import com.dms.useful.UFBrasil;
@@ -23,6 +29,8 @@ public class ClientesController {
 
 	@Autowired
 	private CadastroClienteService clienteService;
+	@Autowired
+	private Clientes clientes;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
@@ -46,5 +54,14 @@ public class ClientesController {
 		}
 		attributes.addFlashAttribute("mensagem", "Salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
+	}
+
+	@GetMapping
+	public ModelAndView pesquisar(ClienteFilter filter, BindingResult result,
+			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("cliente/pesquisaCliente");
+		PageWrapper<Cliente> page = new PageWrapper<>(clientes.filtrar(filter, pageable), httpServletRequest);
+		mv.addObject("pagina", page);
+		return mv;
 	}
 }

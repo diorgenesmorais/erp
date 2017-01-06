@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/patternLayout}" 
+	xmlns:erp="erp.system">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Pesquisa de cervejas</title>
+
+</head>
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>Pesquisa de Cliente</h1>
+					</div>
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/clientes/novo}"> <i
+								class="glyphicon glyphicon-plus-sign"></i><span
+								class="hidden-xs hidden-sm">Novo Cliente</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container-fluid">
+			<form method="GET" th:object="${clienteFilter}">
+				<div class="row">
+					<div class="form-group col-sm-8">
+						<label class="control-label" for="nome">Nome</label>
+						<input type="text" id="nome" class="form-control" th:field="*{nome}" />
+					</div>
+					<div class="form-group col-sm-4">
+						<label class="control-label" for="cpf-cnpj" >CPF/CNPJ</label>
+						<input type="text" id="cpf-cnpj" class="form-control" th:field="*{cpfOuCnpj}" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Pesquisar</button>
+			</form>
+			<div class="table-responsive  bw-tabela-simples">
+				<table class="table  table-hover">
+					<thead>
+						<tr>
+							<th style="width: 220px;">
+								<erp:order page="${pagina}" field="nome" text="Nome" />
+							</th>
+							<th>
+								<erp:order page="${pagina}" field="tipoPessoa" text="'Tipo pessoa'" />
+							</th>
+							<th>
+								<span>CPF/CNPJ</span>
+							</th>
+							<th>
+								<span>Telefone</span>
+							</th>
+							<th style="width: 80px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente : ${pagina.content}">
+							<td th:text="${cliente.nome}" ></td>
+							<td th:text="${cliente.tipoPessoa}" ></td>
+							<td th:text="${cliente.cpfOuCnpj}" ></td>
+							<td th:text="${cliente.telefone}" ></td>
+							<td class="text-center">
+								<a class="btn  btn-link  btn-xs" title="Editar">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</a>
+								<a class="btn  btn-link  btn-xs" title="Excluir">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${pagina.empty}">
+							<td colspan="2">Nenhum cliente encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<erp:paginator page="${pagina}" />
+		</div>
+	</section>
+</body>
+</html>
