@@ -18,19 +18,19 @@ public class Endereco implements Serializable {
 
 	@Column(length = 64)
 	private String logradouro;
-	
+
 	private int numero;
-	
+
 	@Column(length = 64)
 	private String complemento;
-	
+
 	@Column(length = 8)
 	private String cep;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
-	
+
 	@Transient
 	private UFBrasil estado;
 
@@ -81,5 +81,9 @@ public class Endereco implements Serializable {
 	public void setEstado(UFBrasil estado) {
 		this.estado = estado;
 	}
-	
+
+	@Transient
+	public String getCidadeAndEstado() {
+		return (this.cidade != null) ? this.cidade.getNome() + "/" + this.cidade.getEstado() : null;
+	}
 }

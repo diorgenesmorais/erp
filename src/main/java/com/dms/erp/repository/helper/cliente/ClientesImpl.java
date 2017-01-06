@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,7 @@ public class ClientesImpl implements ClientesQueries {
 		criteria = new PaginationBuilder(criteria, pageable).withOrdination().builder();
 
 		addFilter(filter, criteria);
+		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
 
 		return new PageImpl<>(criteria.list(), pageable, totalRows(filter));
 	}

@@ -49,17 +49,20 @@
 				<table class="table  table-hover">
 					<thead>
 						<tr>
-							<th style="width: 220px;">
+							<th class="table-clientes-col-nome">
 								<erp:order page="${pagina}" field="nome" text="Nome" />
 							</th>
-							<th>
+							<th class="table-clientes-col-tipo-pessoa">
 								<erp:order page="${pagina}" field="tipoPessoa" text="'Tipo pessoa'" />
 							</th>
-							<th>
+							<th class="table-clientes-col-cpf-cnpj">
 								<span>CPF/CNPJ</span>
 							</th>
-							<th>
+							<th class="table-clientes-col-telefone">
 								<span>Telefone</span>
+							</th>
+							<th class="table-clientes-col-cidade-estado">
+								<span>Cidade/UF</span>
 							</th>
 							<th style="width: 80px;"></th>
 						</tr>
@@ -67,9 +70,10 @@
 					<tbody>
 						<tr th:each="cliente : ${pagina.content}">
 							<td th:text="${cliente.nome}" ></td>
-							<td th:text="${cliente.tipoPessoa}" ></td>
-							<td th:text="${cliente.cpfOuCnpj}" ></td>
-							<td th:text="${cliente.telefone}" ></td>
+							<td class="text-center" th:text="${cliente.tipoPessoa}" ></td>
+							<td class="text-center" th:text="${cliente.cpfOuCnpj}" ></td>
+							<td class="text-center" th:text="${cliente.telefone}" ></td>
+							<td class="text-right" th:text="${cliente.endereco.cidadeAndEstado}" ></td>
 							<td class="text-center">
 								<a class="btn  btn-link  btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>

@@ -5,8 +5,18 @@ import com.dms.erp.model.validation.group.CpfGroup;
 
 public enum TipoPessoa {
 
-	FISICA("Física", "CPF", "000.000.000-00", CpfGroup.class), JURIDICA("Juridica", "CNPJ", "00.000.000/0000-00",
-			CnpjGroup.class);
+	FISICA("Física", "CPF", "000.000.000-00", CpfGroup.class) {
+		@Override
+		public String formatDocument(String cpfOuCnpj) {
+			return cpfOuCnpj.replaceAll("(\\d{3})(\\d{3})(\\d{3})", "$1.$2.$3-");
+		}
+	}, 
+	JURIDICA("Juridica", "CNPJ", "00.000.000/0000-00", CnpjGroup.class) {
+		@Override
+		public String formatDocument(String cpfOuCnpj) {
+			return cpfOuCnpj.replaceAll("(\\d{2})(\\d{3})(\\d{3})(\\d{4})", "$1.$2.$3/$4-");
+		}
+	};
 
 	private String decription;
 	private String document;
@@ -46,4 +56,6 @@ public enum TipoPessoa {
 	public static String removeFormatting(String formatted) {
 		return formatted != null ? formatted.replaceAll("\\.|-|/", "") : "";
 	}
+	
+	public abstract String formatDocument(String cpfOuCnpj);
 }

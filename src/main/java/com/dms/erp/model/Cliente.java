@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -158,5 +159,16 @@ public class Cliente implements Serializable {
 	@Transient
 	public String getCpfOrCnpjWithoutFormatting() {
 		return TipoPessoa.removeFormatting(getCpfOuCnpj());
+	}
+
+	@PostLoad
+	private void afterLoading() {
+		this.cpfOuCnpj = this.tipoPessoa.formatDocument(this.getCpfOuCnpj());
+		this.telefone = getTelefone() != null
+				? getTelefone().length() == 11 ? getTelefone().replaceAll("(\\d{0})(\\d{2})(\\d{5})", "$1($2)\u0020$3-")
+						: getTelefone().replaceAll("(\\d{0})(\\d{2})(\\d{4})", "$1($2)\u0020$3-")
+				: null;
+		this.endereco.setCep(this.endereco.getCep() != null
+				? this.endereco.getCep().replaceAll("(\\d{2})(\\d{3})", "$1.$2-") : null);
 	}
 }
