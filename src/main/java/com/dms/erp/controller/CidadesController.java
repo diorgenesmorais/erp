@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dms.erp.model.Cidade;
+import com.dms.erp.model.UFBrasil;
 import com.dms.erp.repository.Cidades;
-import com.dmsystem.useful.UFBrasil;
 
 @Controller
 @RequestMapping("/cidades")

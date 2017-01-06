@@ -49,7 +49,7 @@
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 
 		<!-- Lib útil -->
-		<helpful-lib.version>1.0.2</helpful-lib.version>
+		<!-- <helpful-lib.version>1.0.4</helpful-lib.version> -->
 		
 		<httpclient.version>4.5.2</httpclient.version>
 	</properties>
@@ -217,11 +217,11 @@
 		</dependency>
 
 		<!-- lib helpful -->
-		<dependency>
-			<groupId>com.dmsystem.useful</groupId>
+		<!-- <dependency>
+			<groupId>com.helpful</groupId>
 			<artifactId>helpful-lib</artifactId>
 			<version>${helpful-lib.version}</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

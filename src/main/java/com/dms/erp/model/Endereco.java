@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import com.dmsystem.useful.UFBrasil;
-
 @Embeddable
 public class Endereco implements Serializable {
 

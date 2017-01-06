@@ -2,6 +2,7 @@ package com.dms.erp.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.model.Cliente;
 import com.dms.erp.model.TipoPessoa;
-import com.dmsystem.useful.UFBrasil;
+import com.dms.erp.model.UFBrasil;
+import com.dms.erp.service.CadastroClienteService;
+import com.dms.erp.service.exception.RegisteredAlreadyException;
 
 @Controller
 @RequestMapping("/clientes")
 public class ClientesController {
+
+	@Autowired
+	private CadastroClienteService clienteService;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
@@ -32,7 +38,12 @@ public class ClientesController {
 		if (result.hasErrors()) {
 			return novo(cliente);
 		}
-
+		try {
+			this.clienteService.salvar(cliente);
+		} catch (RegisteredAlreadyException e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			return novo(cliente);
+		}
 		attributes.addFlashAttribute("mensagem", "Salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}

@@ -10,7 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -51,7 +54,7 @@ public class Cliente implements Serializable {
 	@CPF(groups = { CpfGroup.class })
 	@CNPJ(groups = { CnpjGroup.class })
 	@Column(length = 14, name = "cpf_cnpj")
-	private String cpfOrCnpj;
+	private String cpfOuCnpj;
 
 	@Column(length = 11)
 	private String telefone;
@@ -87,12 +90,12 @@ public class Cliente implements Serializable {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	public String getCpfOrCnpj() {
-		return cpfOrCnpj;
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
 	}
 
-	public void setCpfOrCnpj(String cpfOrCnpj) {
-		this.cpfOrCnpj = cpfOrCnpj;
+	public void setCpfOuCnpj(String cpfOrCnpj) {
+		this.cpfOuCnpj = cpfOrCnpj;
 	}
 
 	public String getTelefone() {
@@ -142,5 +145,18 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@PrePersist
+	@PreUpdate
+	private void beforePersistingAndUpdating() {
+		this.cpfOuCnpj = TipoPessoa.removeFormatting(getCpfOuCnpj());
+		this.telefone = getTelefone() != null ? getTelefone().replaceAll("\\(|\\)|\u0020|-", "") : null;
+		this.endereco.setCep(this.endereco.getCep() != null ? this.endereco.getCep().replaceAll("\\.|-", "") : null);
+	}
+
+	@Transient
+	public String getCpfOrCnpjWithoutFormatting() {
+		return TipoPessoa.removeFormatting(getCpfOuCnpj());
 	}
 }
