@@ -223,12 +223,12 @@
 			<version>${useful-lib.version}</version>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${httpclient.version}</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 </project>

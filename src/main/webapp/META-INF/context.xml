@@ -5,7 +5,7 @@
             factory="org.apache.naming.factory.BeanFactory"
             type="com.mchange.v2.c3p0.ComboPooledDataSource"
             driverClass="com.mysql.jdbc.Driver"
-            jdbcUrl="jdbc:mysql://localhost/brewer?useSSL=false"
+            jdbcUrl="jdbc:mysql://localhost/cervejaria?useSSL=false"
             user="lau"
             password="man@75r" 
             initialPoolSize="5" 

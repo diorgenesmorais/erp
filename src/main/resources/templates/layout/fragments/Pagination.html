@@ -12,9 +12,9 @@
 						<li th:class="${pagina.first} ? disabled">
 							<a th:href="${pagina.urlOfPage(current - 1)}" th:remove="${pagina.first} ? tag" ><span>&laquo;</span></a>
 						</li>
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numberOfPage=${p - 1}" >
+						<th:block th:each="p : ${pagina.items}" th:with="numberOfPage=${p.index - 1}" >
 							<li th:class="${current == numberOfPage} ? active">
-								<a th:href="${pagina.urlOfPage(numberOfPage)}">[[${p}]]</a>
+								<a th:href="${pagina.urlOfPage(numberOfPage)}">[[${p.index}]]</a>
 							</li>
 						</th:block>
 						<li th:class="${pagina.last} ? disabled">

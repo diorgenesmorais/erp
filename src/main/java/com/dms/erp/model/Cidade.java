@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.dms.useful.UFBrasil;
 
@@ -23,6 +26,7 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "O nome da cidade é obrigatório")
 	@Column(length = 40)
 	private String nome;
 
@@ -35,6 +39,7 @@ public class Cidade implements Serializable {
 	 * 
 	 * @JsonIgnore se não seria lançado a LazyInitializationException.
 	 */
+	@NotNull(message = "O estado é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private UFBrasil estado;
 
@@ -85,5 +90,9 @@ public class Cidade implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public boolean hasEstado() {
+		return this.estado != null;
 	}
 }

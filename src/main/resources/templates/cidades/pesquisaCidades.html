@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/patternLayout}" 
+	xmlns:erp="erp.system">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Pesquisa de Cidades</title>
+
+</head>
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>Pesquisa de Cidade</h1>
+					</div>
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/cidades/nova}"> <i
+								class="glyphicon glyphicon-plus-sign"></i><span
+								class="hidden-xs hidden-sm">Nova Cidade</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container-fluid">
+			<form method="GET" th:object="${cidadeFilter}">
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<label class="control-label" for="estado">Estado</label>
+						<select id="estado" class="form-control" th:field="*{estado}">
+							<option value="">Selecione um Estado</option>
+							<option th:each="uf : ${states}" th:value="${uf}" th:text="${uf.estado}" ></option>
+						</select>
+					</div>
+					
+					<div class="form-group col-sm-8">
+						<label class="control-label" for="nome">Nome</label>
+						<input type="text" id="nome" class="form-control" th:field="*{nome}" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Pesquisar</button>
+			</form>
+			
+			<div class="table-responsive  bw-tabela-simples">
+				<table class="table  table-hover">
+					<thead>
+						<tr>
+							<th class="">
+								<span>Cidade</span>
+							</th>
+							<th>
+								<span>Estado</span>
+								<!-- <erp:order page="${pagina}" field="nome" text="'Nome do Estilo'" /> -->
+							</th>
+							<th style="width: 80px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cidade : ${pagina.content}">
+							<td th:text="${cidade.nome}" ></td>
+							<td class="text-center" th:text="${cidade.estado}" ></td>
+							<td class="text-center">
+								<a class="btn  btn-link  btn-xs" title="Editar">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</a>
+								<a class="btn  btn-link  btn-xs" title="Excluir">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${pagina.empty}">
+							<td colspan="2">Nenhum estilo encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<erp:paginator page="${pagina}" />
+		</div>
+	</section>
+</body>
+</html>

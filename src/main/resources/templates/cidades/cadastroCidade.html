@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/patternLayout}">
+	layout:decorate="~{layout/patternLayout}"
+	xmlns:erp="erp.system">
 <head>
 <title>Cadastro de Cidades</title>
 </head>
@@ -16,23 +17,21 @@
 
 		<div class="container-fluid">
 
-			<form method="POST" th:object="${cliente}"
-				class="form-vertical  js-form-loading">
+			<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading">
+				<erp:message />
 
 				<div class="row">
-					<div class="col-sm-3 form-group">
-						<label for="estado">Estado</label> 
-						<select class="form-control">
-							<option>Selecione um estado</option>
-							<option value="1">PE</option>
-							<option value="2">SP</option>
-							<option value="3">RJ</option>
+					<div class="col-sm-3 form-group" erp:classforerror="estado">
+						<label for="estado" class="control-label">Estado</label> 
+						<select id="estado" class="form-control" th:field="*{estado}" >
+							<option value="">Selecione um estado</option>
+							<option th:each="uf : ${states}" th:value="${uf}" th:text="${uf.estado}" ></option>
 						</select>
 					</div>
 
-					<div class="col-sm-9 form-group">
-						<label for="cidade">Cidade</label> <input
-							id="cidade" type="text" class="form-control" />
+					<div class="col-sm-9 form-group" erp:classforerror="nome" >
+						<label for="cidade" class="control-label">Cidade</label>
+						<input id="cidade" type="text"	class="form-control" th:field="*{nome}" />
 					</div>
 				</div>
 
@@ -42,8 +41,6 @@
 
 			</form>
 		</div>
-
-		<div th:replace="estilo/cadastroRapidoEstilo :: modal"></div>
 	</section>
 </body>
 </html>
