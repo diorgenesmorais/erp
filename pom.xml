@@ -52,6 +52,9 @@
 		<useful-lib.version>1.0.1</useful-lib.version>
 		
 		<httpclient.version>4.5.2</httpclient.version>
+		
+		<!-- Cache - Guava -->
+		<guava.version>19.0</guava.version>
 	</properties>
 
 	<build>
@@ -223,12 +226,20 @@
 			<version>${useful-lib.version}</version>
 		</dependency>
 		
-		<!-- <dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpclient.version}</version>
+		<!-- Cache - Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 			<scope>compile</scope>
-		</dependency> -->
+		</dependency>
+		
+		<!-- Spring Context Support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 </project>
