@@ -6,7 +6,7 @@
 <head>
 <title>Cadastro de Cliente</title>
 <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}" />
+
 	
 </head>
 <body>
@@ -40,10 +40,9 @@
 
 					<div class="col-sm-3 form-group" erp:classforerror="birthDate">
 						<label for="nascimento" class="control-label">Data de nascimento</label> 
-						<input id="nascimento" type="text" class="form-control" th:field="*{birthDate}"
-							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
-							data-date-today-highlight="true" data-date-autoclose="true" />
-						<!-- Attributes of datepicker see: https://bootstrap-datepicker.readthedocs.io/en/latest/options.html -->
+						<input id="nascimento" type="text" class="form-control js-date" th:field="*{birthDate}"
+							 autocomplete="off" />
+		
 					</div>
 				</div>
 
@@ -96,8 +95,6 @@
 
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/js/vendors/bootstrap-switch.min.js}"></script>
-		<script th:src="@{/js/vendors/bootstrap-datepicker.min.js}"></script>
-		<script th:src="@{/js/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
 		<script>
 			$('.js-status').bootstrapSwitch();
 		</script>

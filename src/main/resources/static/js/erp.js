@@ -56,7 +56,7 @@ Erp.MaskCpfCnpj = (function() {
 	MaskCpfCnpj.prototype.init = function() {
 		this.radioTipoPessoa.on('change', onTipoPessoaChanged.bind(this));
 		var tipoPessoaSelected = this.radioTipoPessoa.filter(':checked')[0];
-		if(tipoPessoaSelected){
+		if (tipoPessoaSelected) {
 			applyMask.call(this, $(tipoPessoaSelected));
 		}
 	}
@@ -67,7 +67,7 @@ Erp.MaskCpfCnpj = (function() {
 		this.inputCpfCnpj.val('');
 	}
 
-	function applyMask(tipoPessoaSelected){
+	function applyMask(tipoPessoaSelected) {
 		this.labelCpfCnpj.text(tipoPessoaSelected.data('doc-type'));
 		// At first I tried to use a reserved word "mask" and generated an error
 		this.inputCpfCnpj.mask(tipoPessoaSelected.data('mask-pattern'));
@@ -88,6 +88,24 @@ Erp.MaskCep = (function() {
 	return MaskCep;
 }());
 
+Erp.MaskDate = (function() {
+	function MaskDate() {
+		this.inputDate = $('.js-date');
+	}
+	/* Attributes of datepicker see: https://bootstrap-datepicker.readthedocs.io/en/latest/options.html */
+	MaskDate.prototype.init = function() {
+		this.inputDate.mask('00/00/0000');
+		this.inputDate.datepicker({
+			orientation : 'bottom',
+			language : 'pt-BR',
+			todayHighlight : true,
+			autoclose : true
+		});
+	}
+
+	return MaskDate;
+}());
+
 $(function() {
 	new Erp.Formatter().enable();
 
@@ -96,4 +114,6 @@ $(function() {
 	new Erp.MaskCpfCnpj().init();
 
 	new Erp.MaskCep().init();
+
+	new Erp.MaskDate().init();
 });
