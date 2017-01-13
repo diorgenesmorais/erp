@@ -71,14 +71,12 @@
 					<div class="col-sm-6 form-group" erp:classforerror="grupos">
 						<label for="grupos" class="control-label">Grupos</label>
 						<div class="checkbox">
-							<div class="checkbox checkbox-inline">
-								<input type="checkbox" /> 
-								<label>Administrador</label>
-							</div>
-							<div class="checkbox checkbox-inline">
-								<input type="checkbox" /> 
-								<label>Vendedor</label>
-							</div>
+							<th:block th:each="grupo : ${grupos}">
+								<div class="checkbox checkbox-inline">
+									<input type="checkbox" th:field="*{grupos}" th:value="${grupo.id}" /> 
+									<label th:text="${grupo.name}"></label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 				</div>

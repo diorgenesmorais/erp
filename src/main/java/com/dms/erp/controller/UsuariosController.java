@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.model.Usuario;
+import com.dms.erp.repository.Grupos;
+import com.dms.erp.repository.Usuarios;
 import com.dms.erp.service.CadastroUsuarioService;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 
@@ -21,11 +23,13 @@ public class UsuariosController {
 
 	@Autowired
 	private CadastroUsuarioService usuarioService;
+	@Autowired
+	private Grupos grupos;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuarios/cadastroUsuario");
-
+		mv.addObject("grupos", this.grupos.findAll());
 		return mv;
 	}
 
