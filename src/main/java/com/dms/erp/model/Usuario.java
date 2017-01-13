@@ -48,18 +48,22 @@ public class Usuario implements Serializable {
 	private String confirmPassword;
 
 	@Column(nullable = false)
-	private Boolean active;
+	private boolean active;
 
 	@NotNull(message = "Data de nascimento é obrigatória")
 	@Column(name = "birth_date")
 	private LocalDate birthDate;
 
-	@NotNull(message = "Selecione pelo menos um grupo")
+	/* @NotNull(message = "Selecione pelo menos um grupo") */
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = {
 			@JoinColumn(name = "usuario_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "grupo_id", nullable = false) })
 	private List<Grupo> grupos;
+
+	public Usuario() {
+		this.active = true;
+	}
 
 	public Long getId() {
 		return id;
@@ -101,11 +105,11 @@ public class Usuario implements Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Boolean getActive() {
+	public boolean getActive() {
 		return active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
