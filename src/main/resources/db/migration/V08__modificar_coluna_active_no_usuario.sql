@@ -1,0 +1,1 @@
+ALTER TABLE usuario MODIFY active BOOLEAN DEFAULT true NOT NULL;
