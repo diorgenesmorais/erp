@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -32,12 +33,16 @@ public class Usuario implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String usename;
 
-	@Email
+	@NotBlank(message = "E-mail é obrigatório")
+	@Email(message = "E-mail inválido")
 	@Column(length = 64, nullable = false)
 	private String email;
 
 	@Column(length = 64, nullable = false)
 	private String password;
+
+	@Transient
+	private String confirmPassword;
 
 	@Column(nullable = false)
 	private Boolean active;
@@ -83,6 +88,14 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public Boolean getActive() {
