@@ -50,11 +50,14 @@
 
 		<!-- Lib útil -->
 		<useful-lib.version>1.0.1</useful-lib.version>
-		
+
 		<httpclient.version>4.5.2</httpclient.version>
-		
+
 		<!-- Cache - Guava -->
 		<guava.version>19.0</guava.version>
+
+		<!-- Apache Bean Utils -->
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 	</properties>
 
 	<build>
@@ -225,7 +228,7 @@
 			<artifactId>useful-lib</artifactId>
 			<version>${useful-lib.version}</version>
 		</dependency>
-		
+
 		<!-- Cache - Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -233,7 +236,7 @@
 			<version>${guava.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Spring Context Support -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -241,5 +244,12 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Apache Bean Utils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>

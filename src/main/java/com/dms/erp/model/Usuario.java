@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.dms.erp.validation.CompareAttributes;
+
+@CompareAttributes(attribute = "password", confirmAttribute = "confirmPassword", message = "Os valores da senha não são iguais")
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
