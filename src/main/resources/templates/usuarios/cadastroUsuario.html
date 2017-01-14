@@ -74,7 +74,7 @@
 							<th:block th:each="grupo : ${grupos}">
 								<div class="checkbox checkbox-inline">
 									<input type="checkbox" th:field="*{grupos}" th:value="${grupo.id}" /> 
-									<label th:text="${grupo.name}"></label>
+									<label th:for="${#ids.prev('grupos')}" th:text="${grupo.name}"></label>
 								</div>
 							</th:block>
 						</div>
