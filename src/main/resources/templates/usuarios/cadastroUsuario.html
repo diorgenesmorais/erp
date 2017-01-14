@@ -47,6 +47,7 @@
 				</div>
 
 				<div class="row">
+					<!-- também poderia usar o help do Thymeleaf assim: th:classappend="${usuario['new']} ? bw-required" -->
 					<div class="col-sm-4  form-group" th:classappend="${usuario.novo} ? bw-required" >
 						<label for="senha" class="control-label">Senha</label>
 						<input id="senha" type="password"
