@@ -13,9 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.model.Usuario;
 import com.dms.erp.repository.Grupos;
-import com.dms.erp.repository.Usuarios;
 import com.dms.erp.service.CadastroUsuarioService;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
+import com.dms.erp.service.exception.SenhaUsuarioException;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -43,6 +43,9 @@ public class UsuariosController {
 			usuarioService.salvar(usuario);
 		} catch (RegisteredAlreadyException e) {
 			result.rejectValue("email", "1040", e.getMessage());
+			return novo(usuario);
+		} catch (SenhaUsuarioException e) {
+			result.rejectValue("password", "1040", e.getMessage());
 			return novo(usuario);
 		}
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");

@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-4  form-group" >
+					<div class="col-sm-4  form-group" th:classappend="${usuario.novo} ? bw-required" >
 						<label for="senha" class="control-label">Senha</label>
 						<input id="senha" type="password"
 							class="form-control" th:field="*{password}" />
