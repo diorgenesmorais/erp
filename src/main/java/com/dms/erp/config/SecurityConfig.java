@@ -38,9 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		/**
+		 * .hasRole("CADASTRAR_CIDADE") na realidade espera do banco ROLE_CADASTRAR_CIDADE
+		 */
 		http.authorizeRequests()
-			.antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE")
-			.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
+			.antMatchers("/cidades/nova").hasAuthority("CADASTRAR_CIDADE")
+			.antMatchers("/usuarios/**").hasAuthority("CADASTRAR_USUARIO")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

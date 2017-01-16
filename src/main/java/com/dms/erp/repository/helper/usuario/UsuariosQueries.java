@@ -7,4 +7,5 @@ import com.dms.erp.model.Usuario;
 public interface UsuariosQueries {
 
 	public Optional<Usuario> byEmailAndActive(String email);
+	
 }
