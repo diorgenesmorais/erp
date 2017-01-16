@@ -42,14 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * .hasRole("CADASTRAR_CIDADE") na realidade espera do banco ROLE_CADASTRAR_CIDADE
 		 */
 		http.authorizeRequests()
-			.antMatchers("/cidades/nova").hasAuthority("CADASTRAR_CIDADE")
-			.antMatchers("/usuarios/**").hasAuthority("CADASTRAR_USUARIO")
-			.anyRequest().authenticated()
-			.and()
+				.antMatchers("/cidades/nova").hasAuthority("CADASTRAR_CIDADE")
+				.antMatchers("/usuarios/**").hasAuthority("CADASTRAR_USUARIO")
+				.anyRequest().authenticated()
+				.and()
 			.formLogin()
-			.loginPage("/login").permitAll()
-			.and()
-				.csrf().disable();
+				.loginPage("/login").permitAll()
+				.and()
+			.exceptionHandling()
+				.accessDeniedPage("/403")
+				.and()
+			.csrf().disable();
 	}
 
 	@Bean

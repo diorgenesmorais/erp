@@ -16,4 +16,9 @@ public class LoginController {
 		}
 		return new ModelAndView("login");
 	}
+
+	@GetMapping("/403")
+	public String accessIsDenied() {
+		return "403";
+	}
 }
