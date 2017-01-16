@@ -1,0 +1,2 @@
+INSERT INTO usuario (id, usename, email, password, active, birth_date)
+VALUES (1, 'Diorgenes Morais', 'diorgenesmorais@gmail.com', '$2a$10$pnAuv7W/bZcZpp01wniC5ONOmuO0Z7.svq33RoE6reh5PvImC8WUi', 1, '1974-10-18');
