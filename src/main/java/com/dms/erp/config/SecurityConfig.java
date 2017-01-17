@@ -51,6 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * 	.sessionManagement()
 		 * 		.maximumSessions(1)
 		 * 		.expiredUrl("/login");
+		 * 
+		 * Se a sessão estiver inválida acrescer no 
+		 * 	.sessionManagement()
+		 * 		.invalidSessionUrl("/login")
+		 * para que ele redirecione para a tela de login
 		 * </pre>
 		 */
 		http.authorizeRequests()
@@ -68,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.accessDeniedPage("/403")
 				.and()
 			.sessionManagement()
+				.invalidSessionUrl("/login")
 				.maximumSessions(1)
 				.expiredUrl("/login");
 	}
