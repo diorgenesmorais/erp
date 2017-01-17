@@ -11,6 +11,9 @@ public class SecurityInitializer extends AbstractSecurityWebApplicationInitializ
 	// corrigindo o problema de encode devido a implementação do Spring Security
 	@Override
 	protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
+		// definir em quantos segundos a sessão irá expirar independente de o usuário está mexendo ou não
+		//servletContext.getSessionCookieConfig().setMaxAge(1200); // 1200 = 20 minutos
+		
 		FilterRegistration.Dynamic characterEncoderFilter = servletContext.addFilter("encoderFilter"
 				, new CharacterEncodingFilter());
 		characterEncoderFilter.setInitParameter("encoding", "UTF-8");
