@@ -41,6 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		/**
 		 * .hasRole("CADASTRAR_CIDADE") na realidade espera do banco ROLE_CADASTRAR_CIDADE
+		 * 
+		 * <pre>
+		 * Adicionar o código abaixo (...) para expirar a sessão com um novo login
+		 * e redirecionar para uma URL
+		 * http.authorizeRequests()
+		 * 		...
+		 * 		.and()
+		 * 	.sessionManagement()
+		 * 		.maximumSessions(1)
+		 * 		.expiredUrl("/login");
+		 * </pre>
 		 */
 		http.authorizeRequests()
 				.antMatchers("/cidades/nova").hasAuthority("CADASTRAR_CIDADE")
@@ -54,7 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.and()
 			.exceptionHandling()
-				.accessDeniedPage("/403");
+				.accessDeniedPage("/403")
+				.and()
+			.sessionManagement()
+				.maximumSessions(1)
+				.expiredUrl("/login");
 	}
 
 	@Bean
