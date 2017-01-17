@@ -26,7 +26,7 @@ public class ResourcesExceptionHandler {
 
 		DetailedError erro = new DetailedError();
 		erro.setStatus(400L);
-		erro.setTitulo("Validação");
+		erro.setTitulo("Validation");
 		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
 		erro.setTimestamp(System.currentTimeMillis());
 		erro.setResponseText(e.getMessage());
@@ -54,8 +54,8 @@ public class ResourcesExceptionHandler {
 
 		DetailedError erro = new DetailedError();
 		erro.setStatus(400L);
-		erro.setTitulo("Requisição inválida");
-		erro.setMensagemDesenvolvedor("http://erros.socialbooks.com/400");
+		erro.setTitulo("Data Integrity Violation");
+		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
 		erro.setTimestamp(System.currentTimeMillis());
 		erro.setResponseText(e.getMessage());
 

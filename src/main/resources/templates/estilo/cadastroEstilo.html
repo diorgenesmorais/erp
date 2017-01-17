@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/patternLayout}">
+	layout:decorate="~{layout/patternLayout}"
+	xmlns:erp="erp.system">
 <head>
 <title>Cadastro de Estilo</title>
 </head>
@@ -26,13 +27,11 @@
 		</div>
 
 		<div class="container-fluid">
-
-			<th:block th:replace="layout/fragments/MessageSuccess"></th:block>
 			
 			<form method="POST" th:object="${estilo}"
-				class="form-vertical  js-form-loading">
-				
-				<th:block th:replace="layout/fragments/MessageErrors"></th:block>
+				class="form-vertical  js-form-loading" th:action="@{/estilos/novo}">
+	
+				<erp:message />
 				
 				<div class="row">
 					<div class="col-sm-12 form-group">

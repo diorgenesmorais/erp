@@ -18,7 +18,8 @@ Erp.HandleFoto = (function(){
 			filelimit: 1,
 			allow: '*.(jpg|jpeg|png)',
 			action: this.containerFotoCerveja.data('url-fotos'),
-			complete: onUploadComplete.bind(this)
+			complete: onUploadComplete.bind(this),
+			beforeSend: addCsrfToken.bind(this)
 		}
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
@@ -46,6 +47,12 @@ Erp.HandleFoto = (function(){
 		this.uploadFoto.removeClass('hidden');
 		this.inputNomeFoto.val('');
 		this.inputNomeContentType.val('');
+	}
+	
+	function addCsrfToken(xhr){
+		var token = $('input[name=_csrf]').val();
+		var header = $('input[name=_csrf_header]').val();
+		xhr.setRequestHeader(header, token);
 	}
 	
 	return HandleFoto;

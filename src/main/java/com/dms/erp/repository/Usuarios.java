@@ -22,12 +22,15 @@ public interface Usuarios extends JpaRepository<Usuario, Long>, UsuariosQueries 
 	 * Deve gerar uma query assim:
 	 * 
 	 * select distinct p.name from usuario u 
-	 * 		inner join grupo g on g.id=u.id 
-	 * 		inner join permissao p on g.id=p.id 
-	 * 		where u.id=1;
+	 * inner join usuario_grupo ug on ug.usuario_id=u.id 
+	 * inner join grupo g on g.id=ug.grupo_id 
+	 * inner join grupo_permissao gp on gp.grupo_id=g.id 
+	 * inner join permissao p on p.id=gp.permissao_id 
+	 * where u.id=1;
 	 * </pre>
 	 * 
-	 * @param usuario {@code Usuario}
+	 * @param usuario
+	 *            {@code Usuario}
 	 * @return Uma lista das permissões do usuário.
 	 */
 	@Query("select distinct p.name from Usuario u inner join u.grupos g inner join g.permissoes p where u = ?1")

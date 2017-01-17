@@ -21,7 +21,7 @@
 		<div class="container-fluid">
 
 			<form method="POST" th:object="${usuario}"
-				class="form-vertical  js-form-loading">
+				class="form-vertical  js-form-loading" th:action="@{/usuarios/novo}">
 				<erp:message />
 
 				<div class="row">

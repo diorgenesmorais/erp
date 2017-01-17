@@ -17,7 +17,7 @@
 
 		<div class="container-fluid">
 
-			<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading">
+			<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading" th:action="@{/cidades/nova}">
 				<erp:message />
 
 				<div class="row">

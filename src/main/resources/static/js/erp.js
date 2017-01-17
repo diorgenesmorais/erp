@@ -106,6 +106,21 @@ Erp.MaskDate = (function() {
 	return MaskDate;
 }());
 
+Erp.Security = (function(){
+	function Security(){
+		this.token = $('input[name=_csrf]').val();
+		this.header = $('input[name=_csrf_header').val();
+	}
+	
+	Security.prototype.init = function(){
+		$(document).ajaxSend(function(event, jqxhr, settings){
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+	}
+	
+	return Security;
+}());
+
 $(function() {
 	new Erp.Formatter().enable();
 
@@ -116,4 +131,6 @@ $(function() {
 	new Erp.MaskCep().init();
 
 	new Erp.MaskDate().init();
+	
+	new Erp.Security().init();
 });
