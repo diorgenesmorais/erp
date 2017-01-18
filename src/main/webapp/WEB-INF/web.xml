@@ -10,4 +10,9 @@
 		<error-code>404</error-code>
 		<location>/404</location>
 	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/500</location>
+	</error-page>
 </web-app>

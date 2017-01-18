@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/simpleLayout}">
+<head>
+</head>
+<body class="aw-layout-simple-page">
+	<th:block layout:fragment="conteudo">
+		
+		<div class="aw-error-panel">
+			<h1 class="aw-error-panel__code">
+				<i class="fa  fa-location-arrow">500</i>
+			</h1>
+			
+			<h2 class="aw-error-panel__title">Erro interno</h2>
+			
+			<div class="aw-error-panel__description">
+				Desculpe, ocorreu um erro interno.
+				Se isso persistir, favor entra em contato com a gente.
+				<br/><br/>
+				<a href="javascript:history.back()" class="btn  btn-primary">Voltar para onde estava</a>
+			</div>
+		</div>
+	
+	</th:block>
+</body>
+</html>
