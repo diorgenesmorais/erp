@@ -2,7 +2,8 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/patternLayout}" 
-	xmlns:erp="erp.system">
+	xmlns:erp="erp.system"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +20,7 @@
 					<div class="col-sm-10">
 						<h1>Pesquisa de cervejas</h1>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-2" sec:authorize-url="/cervejas/novo">
 						<div class="aw-page-header-controls">
 							<a class="btn btn-default" th:href="@{/cervejas/novo}"> <i
 								class="glyphicon glyphicon-plus-sign"></i><span

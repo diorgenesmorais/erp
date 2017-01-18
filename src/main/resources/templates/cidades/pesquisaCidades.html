@@ -2,7 +2,8 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/patternLayout}" 
-	xmlns:erp="erp.system">
+	xmlns:erp="erp.system"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +20,7 @@
 					<div class="col-sm-10">
 						<h1>Pesquisa de Cidade</h1>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-2" sec:authorize-url="/cidades/nova">
 						<div class="aw-page-header-controls">
 							<a class="btn btn-default" th:href="@{/cidades/nova}"> <i
 								class="glyphicon glyphicon-plus-sign"></i><span
@@ -61,14 +62,14 @@
 								<span>Estado</span>
 								<!-- <erp:order page="${pagina}" field="nome" text="'Nome do Estilo'" /> -->
 							</th>
-							<th style="width: 80px;"></th>
+							<th style="width: 80px;" sec:authorize-url="/cidades/nova"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="cidade : ${pagina.content}">
 							<td th:text="${cidade.nome}" ></td>
 							<td class="text-center" th:text="${cidade.estado}" ></td>
-							<td class="text-center">
+							<td class="text-center" sec:authorize="hasAuthority('CADASTRAR_CIDADE')">
 								<a class="btn  btn-link  btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
