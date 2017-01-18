@@ -20,6 +20,10 @@
 			</div>
 	
 			<ul class="nav navbar-nav  navbar-right">
+				<li>
+					<!-- Principal returns the UseDetails object where I can get the attributes of it (getUsuario) -->
+					<p class="navbar-text" th:text="${#authentication.principal.usuario.usename}"></p>
+				</li>
 				<li><a th:href="@{/logout}"><em class="fa  fa-sign-out"></em></a></li>
 			</ul>
 	

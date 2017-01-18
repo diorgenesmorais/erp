@@ -61,6 +61,9 @@
 		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
+		
+		<!-- Thymeleaf - Extras Spring Security -->
+		<thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
 	</properties>
 
 	<build>
@@ -269,11 +272,12 @@
 			<scope>compile</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<!-- Thymeleaf - Extras Spring Security -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		    <version>${thymeleaf-extras-springsecurity.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>
