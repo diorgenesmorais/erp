@@ -64,7 +64,8 @@ public class UsuariosImpl implements UsuariosQueries {
 			 * select distinct * from usuario u 
 			 * left outer join usuario_grupo ug on u.id=ug.usuario_id 
 			 * left outer join grupo g on ug.grupo_id=g.id 
-			 * where (u.id in(select usuario_id from usuario_grupo where grupo_id=1));
+			 * where (u.id in(select usuario_id from usuario_grupo where grupo_id=1)
+			 * and u.id in(select usuario_id from usuario_grupo where grupo_id=2));
 			 * </pre>
 			 */
 			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
