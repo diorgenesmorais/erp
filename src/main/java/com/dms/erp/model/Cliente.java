@@ -165,7 +165,7 @@ public class Cliente implements Serializable {
 	private void afterLoading() {
 		this.cpfOuCnpj = this.tipoPessoa.formatDocument(this.getCpfOuCnpj());
 		this.telefone = getTelefone() != null
-				? getTelefone().replaceAll("^(\\d{0})(\\d{2})", "$1($2)\u0020").replaceAll("(\\d{4})$", "-$1") : null;
+				? getTelefone().replaceAll("^(\\d{2})", "($1)\u0020").replaceAll("(\\d{4})$", "-$1") : null;
 		this.endereco.setCep(this.endereco.getCep() != null
 				? this.endereco.getCep().replaceAll("(\\d{2})(\\d{3})", "$1.$2-") : null);
 	}
