@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.model.Usuario;
 import com.dms.erp.repository.Grupos;
+import com.dms.erp.repository.Usuarios;
+import com.dms.erp.repository.filter.UsuarioFilter;
 import com.dms.erp.service.CadastroUsuarioService;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 import com.dms.erp.service.exception.SenhaUsuarioException;
@@ -25,6 +27,8 @@ public class UsuariosController {
 	private CadastroUsuarioService usuarioService;
 	@Autowired
 	private Grupos grupos;
+	@Autowired
+	private Usuarios usuarios;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
@@ -50,5 +54,13 @@ public class UsuariosController {
 		}
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
+	}
+
+	@GetMapping
+	public ModelAndView pesquisar(UsuarioFilter filter) {
+		ModelAndView mv = new ModelAndView("usuarios/pesquisaUsuarios");
+		mv.addObject("grupos", this.grupos.findAll());
+		mv.addObject("usuarios", usuarios.filtrar(filter));
+		return mv;
 	}
 }
