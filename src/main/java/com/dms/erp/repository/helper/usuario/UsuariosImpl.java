@@ -1,11 +1,13 @@
 package com.dms.erp.repository.helper.usuario;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,6 +25,7 @@ import com.dms.erp.model.Grupo;
 import com.dms.erp.model.Usuario;
 import com.dms.erp.model.UsuarioGrupo;
 import com.dms.erp.repository.filter.UsuarioFilter;
+import com.dms.erp.service.exception.IdNullException;
 
 public class UsuariosImpl implements UsuariosQueries {
 
@@ -81,6 +84,20 @@ public class UsuariosImpl implements UsuariosQueries {
 				Criterion[] criterions = new Criterion[subqueries.size()];
 				criteria.add(Restrictions.and(subqueries.toArray(criterions)));
 			}
+		}
+	}
+
+	@Override
+	public void changeActiveByIds(boolean active, Long[] ids) {
+		try {
+			List<Long> lista = Arrays.asList(ids);
+
+			Query query = manager.createNativeQuery("update usuario set active=:active where id in(:ids)");
+			query.setParameter("active", active);
+			query.setParameter("ids", lista);
+			query.executeUpdate();
+		} catch (NullPointerException e) {
+			throw new IdNullException("Precisa informar pelo menos um ID", e);
 		}
 	}
 

@@ -11,5 +11,7 @@ public interface UsuariosQueries {
 	public Optional<Usuario> byEmailAndActive(String email);
 
 	public List<Usuario> filtrar(UsuarioFilter filter);
+	
+	public void changeActiveByIds(boolean active, Long[] ids);
 
 }

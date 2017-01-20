@@ -12,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -25,6 +27,7 @@ import com.dms.erp.validation.CompareAttributes;
 @CompareAttributes(attribute = "password", confirmAttribute = "confirmPassword", message = "Os valores da senha não são iguais")
 @Entity
 @Table(name = "usuario")
+@DynamicUpdate // cria updates mais específicos, só o que realmente mudou.
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 180384153860549271L;
@@ -157,5 +160,14 @@ public class Usuario implements Serializable {
 
 	public boolean isNovo() {
 		return this.id == null;
+	}
+
+	@PreUpdate
+	private void preUpdate() {
+		/**
+		 * Ao alterar o usuário o Hibernate irá validar está classe, por causa
+		 * do @CompareAttributes que exige a confimação de senha.
+		 */
+		this.confirmPassword = this.password;
 	}
 }

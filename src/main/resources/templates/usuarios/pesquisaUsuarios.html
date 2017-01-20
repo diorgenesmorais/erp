@@ -3,7 +3,8 @@
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/patternLayout}" 
 	xmlns:erp="erp.system"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -58,15 +59,31 @@
 							</th:block>
 						</div>
 					</div>
+					<div class="col-sm-6">
+						<button type="submit" class="btn btn-primary">Pesquisar</button>
+					</div>
 				</div>
-
-				<button type="submit" class="btn btn-primary">Pesquisar</button>
 			</form>
 
+			<div class="aw-datatable-toolbar">
+				<button class="btn btn-default btn-xs js-status-btn" data:status="ATIVAR">
+					<span>Ativar</span>
+				</button>
+				<button class="btn btn-default btn-xs js-status-btn" data:status="DESATIVAR">
+					<span>Desativar</span>
+				</button>
+			</div>
+			
 			<div class="table-responsive  bw-tabela-simples">
 				<table class="table  table-hover">
 					<thead>
 						<tr>
+							<th style="width: 30px">
+								<div class="checkbox aw-checkbox-no-margin">
+									<input type="checkbox" />
+									<label></label>
+								</div>
+							</th>
 							<th style="width: 180px">Nome</th>
 							<th style="width: 150px">E-mail</th>
 							<th>Grupos</th>
@@ -77,6 +94,12 @@
 
 					<tbody>
 						<tr th:each="usuario : ${usuarios}">
+							<td>
+								<div class="checkbox aw-checkbox-no-margin">
+									<input type="checkbox" class="js-selection-checkbox" data:codigo="${usuario.id}" />
+									<label></label>
+								</div>
+							</td>
 							<td th:text="${usuario.usename}"></td>
 							<td th:text="${usuario.email}"></td>
 							<td>
@@ -98,5 +121,9 @@
 			
 		</div>
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/multiSelection.js}"></script>
+	</th:block>
 </body>
 </html>

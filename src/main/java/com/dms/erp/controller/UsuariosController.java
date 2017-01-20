@@ -3,11 +3,15 @@ package com.dms.erp.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,6 +20,7 @@ import com.dms.erp.repository.Grupos;
 import com.dms.erp.repository.Usuarios;
 import com.dms.erp.repository.filter.UsuarioFilter;
 import com.dms.erp.service.CadastroUsuarioService;
+import com.dms.erp.service.StatusUsuario;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 import com.dms.erp.service.exception.SenhaUsuarioException;
 
@@ -62,5 +67,11 @@ public class UsuariosController {
 		mv.addObject("grupos", this.grupos.findAll());
 		mv.addObject("usuarios", usuarios.filtrar(filter));
 		return mv;
+	}
+
+	@PutMapping("/status")
+	@ResponseStatus(HttpStatus.OK) // a requisição precisa de uma resposta
+	public void atualizarStatus(@RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario) {
+		usuarioService.alterarStatus(codigos, statusUsuario);
 	}
 }
