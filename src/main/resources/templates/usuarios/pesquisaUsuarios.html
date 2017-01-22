@@ -48,6 +48,9 @@
 				</div>
 
 				<div class="row">
+					<div class="col-sm-6">
+						<button type="submit" class="btn btn-primary">Pesquisar</button>
+					</div>
 					<div class="form-group col-sm-6">
 						<label for="grupos" class="control-label">Grupos</label>
 						<div class="checkbox">
@@ -59,17 +62,14 @@
 							</th:block>
 						</div>
 					</div>
-					<div class="col-sm-6">
-						<button type="submit" class="btn btn-primary">Pesquisar</button>
-					</div>
 				</div>
 			</form>
 
 			<div class="aw-datatable-toolbar">
-				<button class="btn btn-default btn-xs js-status-btn" data:status="ATIVAR">
+				<button class="btn btn-default btn-xs js-status-btn disabled" data:status="ATIVAR" data:url="@{/usuarios/status}">
 					<span>Ativar</span>
 				</button>
-				<button class="btn btn-default btn-xs js-status-btn" data:status="DESATIVAR">
+				<button class="btn btn-default btn-xs js-status-btn disabled" data:status="DESATIVAR" data:url="@{/usuarios/status}">
 					<span>Desativar</span>
 				</button>
 			</div>
@@ -78,9 +78,9 @@
 				<table class="table  table-hover">
 					<thead>
 						<tr>
-							<th style="width: 30px">
+							<th class="table-usuarios-col-status">
 								<div class="checkbox aw-checkbox-no-margin">
-									<input type="checkbox" />
+									<input type="checkbox" class="js-selection-all" />
 									<label></label>
 								</div>
 							</th>
@@ -95,7 +95,7 @@
 					<tbody>
 						<tr th:each="usuario : ${usuarios}">
 							<td>
-								<div class="checkbox aw-checkbox-no-margin">
+								<div class="checkbox aw-checkbox-no-margin" th:if="${#authentication.principal.usuario.id != usuario.id}">
 									<input type="checkbox" class="js-selection-checkbox" data:codigo="${usuario.id}" />
 									<label></label>
 								</div>
@@ -105,7 +105,9 @@
 							<td>
 								<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.name}${grupoStat.last ? '':', '}|" ></span>
 							</td>
-							<td th:text="${usuario.active} ? Ativo : Inativo"></td>
+							<td>
+								<span class="label" th:classappend="${usuario.active} ? label-success : label-danger" th:text="${usuario.active} ? Ativo : Inativo"></span>
+							</td>
 							<td class="text-center">
 								<a class="btn  btn-link  btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>
