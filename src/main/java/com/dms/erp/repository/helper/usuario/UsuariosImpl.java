@@ -7,7 +7,9 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -106,12 +108,26 @@ public class UsuariosImpl implements UsuariosQueries {
 
 	@Override
 	public void changeActiveByIds(boolean active, Long[] ids) {
-		List<Long> lista = Arrays.asList(ids);
-
-		Query query = manager.createNativeQuery("update usuario set active=:active where id in(:ids)");
-		query.setParameter("active", active);
-		query.setParameter("ids", lista);
-		query.executeUpdate();
+		/**
+		 * Alterando atravez de uma query nativa.
+		 * <pre>
+		 * List<Long> lista = Arrays.asList(ids);
+		 * 
+		 * Query query = manager.createNativeQuery("update usuario set active=:active where id in(:ids)");
+		 * query.setParameter("active", active);
+		 * query.setParameter("ids", lista);
+		 * query.executeUpdate();
+		 * </pre>
+		 */
+		/* Alterando atravez de uma Criteria */
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaUpdate<Usuario> update = builder.createCriteriaUpdate(Usuario.class);
+		Root<Usuario> root = update.from(Usuario.class);
+		
+		update.set("active", active);
+		update.where(builder.in(root.get("id").in(Arrays.asList(ids))));
+		
+		manager.createQuery(update).executeUpdate();
 	}
 
 }
