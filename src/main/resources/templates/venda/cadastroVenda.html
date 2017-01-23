@@ -62,11 +62,15 @@
 					<div class="input-group">
 				      <input id="nomeCliente" type="text" readonly="readonly" class="form-control" placeholder="Clique na lupa para pesquisar o cliente"/>
 				      <span class="input-group-btn">
-				        <button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada">
+				        <button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada"
+				        	data-toggle="modal" data-target="#pesquisaRapidaClientes">
 				        	<i class="glyphicon  glyphicon-search"></i>
 				        </button>
 				      </span>
 				    </div>
+<!-- Modal start -->				    
+<th:block th:replace="cliente/pesquisaRapidaClientes :: pesquisaRapidaClientes"></th:block>
+<!-- Modal end -->
 				</div>
 				
 				<div class="form-group  col-sm-4 bw-required">
