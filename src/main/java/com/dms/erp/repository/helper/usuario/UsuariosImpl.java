@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -17,7 +18,9 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.sql.JoinType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -25,6 +28,7 @@ import com.dms.erp.model.Grupo;
 import com.dms.erp.model.Usuario;
 import com.dms.erp.model.UsuarioGrupo;
 import com.dms.erp.repository.filter.UsuarioFilter;
+import com.dms.erp.repository.pagination.PaginationBuilder;
 
 public class UsuariosImpl implements UsuariosQueries {
 
@@ -40,13 +44,20 @@ public class UsuariosImpl implements UsuariosQueries {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public List<Usuario> filtrar(UsuarioFilter filter) {
+	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
 
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		/* criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY); */
+		criteria = new PaginationBuilder(criteria, pageable).withOrdination().builder();
 		addFilter(filter, criteria);
-
-		return criteria.list();
+		List<Usuario> filtered = criteria.list();
+		/**
+		 * Por ficarmos limitados (uso de LIMIT junto com DISTINCT) precisamos
+		 * fazer uma query por usuário e depois uma outra para os grupos.
+		 */
+		filtered.forEach(u -> Hibernate.initialize(u.getGrupos()));
+		
+		return new PageImpl<>(filtered, pageable, totalRows(filter));
 	}
 
 	private void addFilter(UsuarioFilter filter, Criteria criteria) {
@@ -60,7 +71,8 @@ public class UsuariosImpl implements UsuariosQueries {
 			}
 
 			/**
-			 * A necessidade é gerar uma query abaixo.
+			 * Para necessidade de gerar uma query abaixo.
+			 * criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
 			 * 
 			 * <pre>
 			 * select distinct * from usuario u 
@@ -70,7 +82,6 @@ public class UsuariosImpl implements UsuariosQueries {
 			 * and u.id in(select usuario_id from usuario_grupo where grupo_id=2));
 			 * </pre>
 			 */
-			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
 			if (filter.getGrupos() != null && !filter.getGrupos().isEmpty()) {
 				List<Criterion> subqueries = new ArrayList<>();
 				for (Long grupo_id : filter.getGrupos().stream().mapToLong(Grupo::getId).toArray()) {
@@ -84,6 +95,13 @@ public class UsuariosImpl implements UsuariosQueries {
 				criteria.add(Restrictions.and(subqueries.toArray(criterions)));
 			}
 		}
+	}
+
+	private long totalRows(UsuarioFilter filter) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+		addFilter(filter, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (long) criteria.uniqueResult();
 	}
 
 	@Override

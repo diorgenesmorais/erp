@@ -93,7 +93,7 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="usuario : ${usuarios}">
+						<tr th:each="usuario : ${pagina.content}">
 							<td>
 								<div class="checkbox aw-checkbox-no-margin" th:if="${#authentication.principal.usuario.id != usuario.id}">
 									<input type="checkbox" class="js-selection-checkbox" data:codigo="${usuario.id}" />
@@ -117,9 +117,13 @@
 								</a>
 							</td>
 						</tr>
+						<tr th:if="${pagina.empty}">
+							<td colspan="6">Nenhuma cerveja encontrada</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			<erp:paginator page="${pagina}" />
 			
 		</div>
 	</section>
