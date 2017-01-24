@@ -26,6 +26,7 @@ import org.hibernate.validator.group.GroupSequenceProvider;
 import com.dms.erp.model.validation.ClienteGroupSeguenceProvider;
 import com.dms.erp.model.validation.group.CnpjGroup;
 import com.dms.erp.model.validation.group.CpfGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -64,6 +65,7 @@ public class Cliente implements Serializable {
 	@Column(length = 64)
 	private String email;
 
+	@JsonIgnore
 	@Embedded
 	private Endereco endereco;
 

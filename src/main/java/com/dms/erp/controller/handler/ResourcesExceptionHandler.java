@@ -61,4 +61,17 @@ public class ResourcesExceptionHandler {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<DetailedError> handlerIllegalArgumentException(IllegalArgumentException e,
+			HttpServletRequest request) {
+		DetailedError erro = new DetailedError();
+		erro.setStatus(400L);
+		erro.setTitulo("Illegal Argument Exception");
+		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
+		erro.setTimestamp(System.currentTimeMillis());
+		erro.setResponseText(e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
 }
