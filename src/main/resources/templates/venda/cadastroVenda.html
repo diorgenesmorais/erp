@@ -5,6 +5,8 @@
 	xmlns:erp="erp.system">
 <head>
 	<title>Cadastro de venda</title>
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}" />
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}" />
 </head>
 <body>
 <section layout:fragment="conteudo">
@@ -103,7 +105,7 @@
 
 					<div class="row">
 						<div class="form-group  col-lg-12">
-							<input type="text" class="form-control" id="cerveja" 
+							<input type="text" class="form-control js-pesquisa-cerveja" id="cerveja" 
 								placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" />
 						</div>
 					</div>
@@ -161,11 +163,16 @@
 <!-- Modal start -->				    
 <th:block th:replace="cliente/pesquisaRapidaClientes :: pesquisaRapidaClientes"></th:block>
 <!-- Modal end -->
+
+<th:block th:replace="hbs/TemplateAutocompleteCerveja"></th:block>
+
 </section>
 
 <th:block layout:fragment="javascript-extra">
+	<script th:src="@{/js/vendors/jquery.easy-autocomplete.min.js}"></script>
 	<script th:src="@{/js/vendors/handlebars.min.js}"></script>
 	<script th:src="@{/js/cliente_pesquisa_rapida.js}"></script>
+	<script th:src="@{/js/venda.autocomplete-itens.js}"></script>
 	<script>
 	$(function() {
 		$('.js-abas-venda a').click(function (e) {
