@@ -1,5 +1,7 @@
 package com.dms.erp.repository.helper.cerveja;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.dms.erp.dto.CervejaDTO;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.repository.filter.CervejaFilter;
 import com.dms.erp.repository.pagination.PaginationBuilder;
@@ -91,6 +94,16 @@ public class CervejasImpl implements CervejasQueries {
 		addFilter(filter, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (long) criteria.uniqueResult();
+	}
+
+	@Override
+	public List<CervejaDTO> bySkuOrNome(String skuOuNome) {
+		String jpql = "select new com.dms.erp.dto.CervejaDTO(id, sku, nome, origem, valor, foto) "
+				+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)";
+		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql, CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome + "%")
+				.getResultList();
+		return cervejasFiltradas;
 	}
 
 }
