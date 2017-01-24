@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -26,6 +27,8 @@ import org.springframework.util.StringUtils;
 
 import com.dms.erp.validation.SKU;
 
+@NamedQuery(name="Cervejas.bySkuOrNome", query="select new com.dms.erp.dto.CervejaDTO(id, sku, nome, origem, valor, foto) "
+		+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)")
 @Entity
 @Table(name = "cerveja")
 public class Cerveja implements Serializable {

@@ -62,7 +62,8 @@ public class CervejasImpl implements CervejasQueries {
 
 			if (!StringUtils.isEmpty(filter.getNome())) {
 				// replace "<space>" para %
-				criteria.add(Restrictions.ilike("nome", filter.getNome().replaceAll("\u0020", "\u0025"), MatchMode.ANYWHERE));
+				criteria.add(Restrictions.ilike("nome", filter.getNome().replaceAll("\u0020", "\u0025"),
+						MatchMode.ANYWHERE));
 			}
 
 			if (filter.getEstilo() != null && filter.getEstilo().getId() != null) {
@@ -98,11 +99,8 @@ public class CervejasImpl implements CervejasQueries {
 
 	@Override
 	public List<CervejaDTO> bySkuOrNome(String skuOuNome) {
-		String jpql = "select new com.dms.erp.dto.CervejaDTO(id, sku, nome, origem, valor, foto) "
-				+ "from Cerveja where lower(sku) like lower(:skuOuNome) or lower(nome) like lower(:skuOuNome)";
-		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql, CervejaDTO.class)
-				.setParameter("skuOuNome", skuOuNome + "%")
-				.getResultList();
+		List<CervejaDTO> cervejasFiltradas = manager.createNamedQuery("Cervejas.bySkuOrNome", CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome + "%").getResultList();
 		return cervejasFiltradas;
 	}
 
