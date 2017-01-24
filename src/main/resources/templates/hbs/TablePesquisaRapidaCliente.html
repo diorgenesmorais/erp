@@ -11,7 +11,7 @@
 		<tbody>
 			{{#if .}}
 				{{#each .}}
-					<tr>
+					<tr data-id="{{id}}" data-nome="{{nome}}" class="js-dados-tabela-resultado-cliente">
 						<td>{{nome}}</td>
 						<td>{{telefone}}</td>
 					</tr>
