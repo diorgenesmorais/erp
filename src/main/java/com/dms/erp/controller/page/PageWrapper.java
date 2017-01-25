@@ -1,6 +1,5 @@
 package com.dms.erp.controller.page;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,14 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.dms.useful.PagesLimitControl;
+
 public class PageWrapper<T> {
 
 	private Page<T> page;
 	private UriComponentsBuilder uriBuilder;
-	private final int MAX_PAGE = 5;
-	private List<PageItem> items;
-	private int start;
-	private int currentNumber;
+	private PagesLimitControl pageControl;
 
 	public PageWrapper(Page<T> page, HttpServletRequest request) {
 		this.page = page;
@@ -25,7 +23,8 @@ public class PageWrapper<T> {
 				.replaceAll("\\+", "%20");
 
 		this.uriBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
-		config();
+
+		this.pageControl = new PagesLimitControl(this.page.getNumber(), this.page.getTotalPages());
 	}
 
 	public List<T> getContent() {
@@ -41,7 +40,7 @@ public class PageWrapper<T> {
 	}
 
 	public int getCurrentNumber() {
-		return currentNumber;
+		return this.page.getNumber();
 	}
 
 	public boolean isFirst() {
@@ -56,9 +55,25 @@ public class PageWrapper<T> {
 		return page.getTotalPages();
 	}
 
+	/**
+	 * Delimita a primeira página.
+	 * 
+	 * @return número da primeira página.
+	 */
+	public int getNumberInitial() {
+		return pageControl.getFirst();
+	}
+
+	/**
+	 * Delimita a última página
+	 * 
+	 * @return a última página (no limite)
+	 */
+	public int getLimitPages() {
+		return pageControl.getLast();
+	}
+
 	public String urlOfPage(int current) {
-		
-		System.out.println("chamou urlOfPage >>>>>>>>> " + current);
 		/*
 		 * Métodos {@code UriComponentsBuilder#build(true)#encode()} resolvem a
 		 * falta de decodificação e encodificação da página por causa de valores
@@ -105,47 +120,6 @@ public class PageWrapper<T> {
 		}
 
 		return direction;
-	}
-
-	public class PageItem {
-		private int index;
-
-		public PageItem(int index) {
-			this.index = index;
-		}
-
-		public int getIndex() {
-			return index;
-		}
-
-	}
-
-	public List<PageItem> getItems() {
-		return this.items;
-	}
-
-	private void config() {
-		this.currentNumber = page.getNumber();
-		this.start = 1;
-		int status = (this.currentNumber + 1) - MAX_PAGE;
-		
-			if (status >= 0) {
-				this.start += status;
-			}
-			System.out.println("Status " + status + " Start: " + this.start);
-		this.items = new ArrayList<>();
-		int size, remaining;
-		remaining = this.page.getTotalPages() - this.currentNumber;
-		
-		if (remaining >= MAX_PAGE) {
-			size = MAX_PAGE;
-		} else {
-			size = remaining;
-		}
-
-		for (int i = 0; i < size; i++) {
-			this.items.add(new PageItem(this.start + i));
-		}
 	}
 
 }

@@ -4,7 +4,7 @@
 	
 	<groupId>com.dms</groupId>
 	<artifactId>erp</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<packaging>war</packaging>
 
@@ -50,7 +50,7 @@
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 
 		<!-- Lib útil -->
-		<useful-lib.version>1.0.1</useful-lib.version>
+		<useful-lib.version>1.1.0</useful-lib.version>
 
 		<httpclient.version>4.5.2</httpclient.version>
 
