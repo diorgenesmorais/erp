@@ -30,7 +30,7 @@ import com.dms.erp.model.Grupo;
 import com.dms.erp.model.Usuario;
 import com.dms.erp.model.UsuarioGrupo;
 import com.dms.erp.repository.filter.UsuarioFilter;
-import com.dms.erp.repository.pagination.PaginationBuilder;
+import com.dms.useful.pagination.PaginationBuilder;
 
 public class UsuariosImpl implements UsuariosQueries {
 

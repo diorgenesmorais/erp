@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 
 import com.dms.erp.model.Cidade;
 import com.dms.erp.repository.filter.CidadeFilter;
-import com.dms.erp.repository.pagination.PaginationBuilder;
+import com.dms.useful.pagination.PaginationBuilder;
 
 public class CidadesImpl implements CidadesQueries {
 

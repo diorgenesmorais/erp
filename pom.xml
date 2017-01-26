@@ -4,7 +4,7 @@
 	
 	<groupId>com.dms</groupId>
 	<artifactId>erp</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 
 	<packaging>war</packaging>
 
@@ -35,7 +35,7 @@
 		<log4j.version>2.6</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 
-		<!-- JPA / Hibernate -->
+		<!-- JPA / Hibernate e Spring data JPA - Is contained in the useful-lib package, see pom.xml -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		<spring-data-jpa.version>1.10.5.RELEASE</spring-data-jpa.version>
 
@@ -49,8 +49,8 @@
 		<!-- Thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 
-		<!-- Lib útil -->
-		<useful-lib.version>1.1.0</useful-lib.version>
+		<!-- Lib útil - JPA / Hibernate - Spring data JPA -->
+		<useful-lib.version>1.1.2</useful-lib.version>
 
 		<httpclient.version>4.5.2</httpclient.version>
 
@@ -175,13 +175,7 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
 		</dependency>
-		<!-- JPA / Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>compile</scope>
-		</dependency>
+		<!-- JPA / Hibernate - Is contained in the useful-lib package -->
 
 		<!-- Hibernate - Java 8 support -->
 		<dependency>
@@ -199,12 +193,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Spring data JPA -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data-jpa.version}</version>
-		</dependency>
+		<!-- Spring data JPA - Is contained in the useful-lib package -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

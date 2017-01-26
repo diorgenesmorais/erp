@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 
 import com.dms.erp.model.Estilo;
 import com.dms.erp.repository.filter.EstiloFilter;
-import com.dms.erp.repository.pagination.PaginationBuilder;
+import com.dms.useful.pagination.PaginationBuilder;
 
 public class EstilosImpl implements EstilosQueries {
 

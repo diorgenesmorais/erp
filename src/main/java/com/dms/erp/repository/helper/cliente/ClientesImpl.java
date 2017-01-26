@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
 
 import com.dms.erp.model.Cliente;
 import com.dms.erp.repository.filter.ClienteFilter;
-import com.dms.erp.repository.pagination.PaginationBuilder;
+import com.dms.useful.pagination.PaginationBuilder;
 
 public class ClientesImpl implements ClientesQueries {
 

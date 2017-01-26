@@ -19,7 +19,8 @@ import org.springframework.util.StringUtils;
 import com.dms.erp.dto.CervejaDTO;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.repository.filter.CervejaFilter;
-import com.dms.erp.repository.pagination.PaginationBuilder;
+import com.dms.useful.pagination.PaginationBuilder;
+
 
 /**
  * {@code CervejasImpl} é uma implementação de um repositório personalizado.

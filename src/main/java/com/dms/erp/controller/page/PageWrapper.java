@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.dms.useful.PagesLimitControl;
+import com.dms.useful.pagination.PagesLimitControl;
 
 public class PageWrapper<T> {
 
