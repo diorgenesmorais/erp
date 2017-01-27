@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.dms.erp.model.Cerveja;
-import com.dms.erp.venda.TabelaItensVenda;
+import com.dms.erp.session.TabelaItensVenda;
 
 public class TabelaItensVendaTest {
 
