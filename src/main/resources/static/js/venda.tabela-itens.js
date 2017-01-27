@@ -1,6 +1,7 @@
 Erp.TabelaItens = (function(){
 	function TabelaItens(autocomplete){
 		this.autocomplete = autocomplete;
+		this.tabelaCervejaContainer = $('.js-tabela-cerveja-container');
 	}
 	
 	TabelaItens.prototype.init = function(){
@@ -15,9 +16,11 @@ Erp.TabelaItens = (function(){
 				id: item.id
 			}
 		});
-		response.done(function(data){
-			console.log(data);
-		});
+		response.done(onTabelaCervejaContainer.bind(this));
+	}
+	
+	function onTabelaCervejaContainer(html){
+		this.tabelaCervejaContainer.html(html);
 	}
 	
 	return TabelaItens;

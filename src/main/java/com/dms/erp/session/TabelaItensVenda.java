@@ -28,4 +28,8 @@ public class TabelaItensVenda {
 
 		itens.add(item);
 	}
+
+	public List<ItemVenda> getItens() {
+		return itens;
+	}
 }
