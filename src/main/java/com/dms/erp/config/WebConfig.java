@@ -39,6 +39,7 @@ import com.dms.erp.controller.CervejasController;
 import com.dms.erp.controller.converter.CidadeConverter;
 import com.dms.erp.controller.converter.EstiloConverter;
 import com.dms.erp.controller.converter.GrupoConverter;
+import com.dms.erp.session.TabelaItensVenda;
 import com.dms.erp.thymeleaf.ErpDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -54,7 +55,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
  *
  */
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItensVenda.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
