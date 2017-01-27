@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Transient;
 
-public class ItenVenda implements Serializable {
+public class ItemVenda implements Serializable {
 
 	private static final long serialVersionUID = 902950213005687352L;
 
@@ -67,7 +67,7 @@ public class ItenVenda implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItenVenda other = (ItenVenda) obj;
+		ItemVenda other = (ItemVenda) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
