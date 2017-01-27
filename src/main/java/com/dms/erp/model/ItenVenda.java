@@ -1,0 +1,78 @@
+package com.dms.erp.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+import javax.persistence.Transient;
+
+public class ItenVenda implements Serializable {
+
+	private static final long serialVersionUID = 902950213005687352L;
+
+	private Long id;
+	private Integer qtde;
+	private BigDecimal valorUnitario;
+	private Cerveja cerveja;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getQtde() {
+		return qtde;
+	}
+
+	public void setQtde(Integer qtde) {
+		this.qtde = qtde;
+	}
+
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	public Cerveja getCerveja() {
+		return cerveja;
+	}
+
+	public void setCerveja(Cerveja cerveja) {
+		this.cerveja = cerveja;
+	}
+
+	@Transient
+	public BigDecimal getValorTotal() {
+		return this.valorUnitario.multiply(new BigDecimal(this.qtde));
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItenVenda other = (ItenVenda) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+}
