@@ -10,9 +10,10 @@ Erp.Autocomplete = (function() {
 	}
 
 	Autocomplete.prototype.init = function() {
+		var url = this.skuOuNomeInput.data('url');
 		var options = {
 			url : function(skuOuNome) {
-				return '/erp/cervejas?skuOuNome=' + skuOuNome;
+				return url + '?skuOuNome=' + skuOuNome;
 			},
 			getValue : 'nome',
 			minCharNumber : 3,
@@ -39,6 +40,8 @@ Erp.Autocomplete = (function() {
 
 	function onSelectionItem() {
 		this.emitter.trigger('item-selecionado', this.skuOuNomeInput.getSelectedItemData());
+		this.skuOuNomeInput.val('');
+		this.skuOuNomeInput.focus();
 	}
 
 	return Autocomplete;

@@ -2,7 +2,8 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/patternLayout}" 
-	xmlns:erp="erp.system">
+	xmlns:erp="erp.system"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 <head>
 	<title>Cadastro de venda</title>
 	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}" />
@@ -106,7 +107,8 @@
 					<div class="row">
 						<div class="form-group  col-lg-12">
 							<input type="text" class="form-control js-pesquisa-cerveja" id="cerveja" 
-								placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" />
+								placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" 
+								autofocus="autofocus" data:url="@{/cervejas}" />
 						</div>
 					</div>
 					
