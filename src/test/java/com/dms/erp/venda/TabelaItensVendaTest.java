@@ -64,4 +64,19 @@ public class TabelaItensVendaTest {
 
 		assertEquals(1, tabelaItensVenda.getItens().size());
 	}
+
+	@Test
+	public void deveAlterarQuantidadedoItem() throws Exception {
+		cerveja.setId(1L);
+		cerveja.setValor(new BigDecimal("4.5"));
+
+		tabelaItensVenda.adicionarItem(cerveja, 1);
+
+		tabelaItensVenda.alterarQuantidadeItem(cerveja, 3);
+
+		// garantir que só tem um item
+		assertEquals(1, tabelaItensVenda.getItens().size());
+		// o motivo real deste teste
+		assertEquals(new BigDecimal("13.5"), tabelaItensVenda.getValorTotal());
+	}
 }

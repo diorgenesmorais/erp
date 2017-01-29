@@ -21,6 +21,23 @@ Erp.TabelaItens = (function(){
 	
 	function onTabelaCervejaContainer(html){
 		this.tabelaCervejaContainer.html(html);
+		$('.js-tabela-cerveja-qtde-item').on('change', onQtdeItemAlterado.bind(this));
+	}
+	
+	function onQtdeItemAlterado(event){
+		var input = $(event.target);
+		var qtde = input.val();
+		var idCerveja = input.data('id-cerveja');
+		
+		var response = $.ajax({
+			url: 'item/' + idCerveja,
+			method: 'PUT',
+			data: {
+				quantidade: qtde
+			}
+		});
+		
+		response.done(onTabelaCervejaContainer.bind(this));
 	}
 	
 	return TabelaItens;

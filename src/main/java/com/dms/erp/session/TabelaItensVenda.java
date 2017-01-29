@@ -38,6 +38,11 @@ public class TabelaItensVenda {
 		}
 	}
 
+	public void alterarQuantidadeItem(Cerveja cerveja, Integer quantidade){
+		ItemVenda itemVenda = findByCerveja(cerveja).get();
+		itemVenda.setQtde(quantidade);
+	}
+	
 	public List<ItemVenda> getItens() {
 		return itens;
 	}
