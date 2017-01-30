@@ -23,6 +23,7 @@ Erp.TabelaItens = (function(){
 		this.tabelaCervejaContainer.html(html);
 		$('.js-tabela-cerveja-qtde-item').on('change', onQtdeItemAlterado.bind(this));
 		$('.js-tabela-item').on('dblclick', onDesejaExcluir);
+		$('.js-exclusao-item-btn').on('click', onExclusaoItem.bind(this));
 	}
 	
 	function onQtdeItemAlterado(event){
@@ -44,6 +45,16 @@ Erp.TabelaItens = (function(){
 	function onDesejaExcluir(event){
 		// this = event.currentTarget (this aqui é quem escutou o event: currentTarget = js-tabela-item)
 		$(this).toggleClass('solicitando-exclusao');
+	}
+	
+	function onExclusaoItem(event){
+		var idCerveja = $(event.target).data('id-cerveja');
+		var response = $.ajax({
+			url: 'item/' + idCerveja,
+			method: 'DELETE'
+		});
+		
+		response.done(onTabelaCervejaContainer.bind(this));
 	}
 	
 	return TabelaItens;

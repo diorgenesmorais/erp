@@ -3,6 +3,7 @@ package com.dms.erp.venda;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -78,5 +79,52 @@ public class TabelaItensVendaTest {
 		assertEquals(1, tabelaItensVenda.getItens().size());
 		// o motivo real deste teste
 		assertEquals(new BigDecimal("13.5"), tabelaItensVenda.getValorTotal());
+	}
+
+	@Test
+	public void deveExcluirItem() throws Exception {
+		cerveja.setId(1L);
+		cerveja.setValor(new BigDecimal("8.9"));
+		Cerveja becks = new Cerveja();
+		becks.setId(2L);
+		becks.setValor(new BigDecimal("11.4"));
+
+		Cerveja longNet = new Cerveja();
+		longNet.setId(3L);
+		longNet.setValor(new BigDecimal("6.8"));
+
+		tabelaItensVenda.adicionarItem(cerveja, 1);
+		tabelaItensVenda.adicionarItem(becks, 3);
+		tabelaItensVenda.adicionarItem(longNet, 2);
+
+		tabelaItensVenda.removeItem(becks);
+
+		assertEquals(2, tabelaItensVenda.getItens().size());
+		assertEquals(new BigDecimal("22.5"), tabelaItensVenda.getValorTotal());
+	}
+
+	@Test(expected = NoSuchElementException.class)
+	public void deveFalharAoTentarExcluirItemQueNaoEstaNaLista() throws Exception {
+		cerveja.setId(1L);
+		cerveja.setValor(new BigDecimal("8.9"));
+		Cerveja becks = new Cerveja();
+		becks.setId(2L);
+		becks.setValor(new BigDecimal("11.4"));
+
+		Cerveja longNet = new Cerveja();
+		longNet.setId(3L);
+		longNet.setValor(new BigDecimal("6.8"));
+
+		Cerveja proibida = new Cerveja();
+		proibida.setId(4L);
+		proibida.setValor(new BigDecimal("9.9"));
+
+		tabelaItensVenda.adicionarItem(cerveja, 1);
+		tabelaItensVenda.adicionarItem(becks, 3);
+		tabelaItensVenda.adicionarItem(longNet, 2);
+
+		tabelaItensVenda.removeItem(proibida);
+
+		fail("deve lançar um NoSuchElementException porque o item não está na lista");
 	}
 }
