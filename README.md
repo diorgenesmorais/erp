@@ -4,7 +4,7 @@ Este projeto é baseado no curso de Spring MVC da Algaworks.
 
 Foram utilizados os seguintes frameworks e bibliotecas:
 Spring web MVC 4.3.3.RELEASE;
-Thymeleaf 3.0.2;
+Thymeleaf 3.0.2; @see [http://www.thymeleaf.org/](http://www.thymeleaf.org/)
 JQuery;
 Log4j 2.6;
 Hibernate 5.1.0.Final;
