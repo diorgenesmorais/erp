@@ -17,3 +17,9 @@ Handlebars 4.0.5;
 Flyway 4.0.2 - usado na migração do banco de dados
 
 Documentação (Javadoc): fora do padrão, voltada ao aprendizado, anotações, dicas.
+
+Java since: 8
+Server: apache-tomcat-8.0.41
+lib of tomcat:	c3p0-0.9.5.2.jar
+		mchange-commons-java-0.2.11.jar (comes with c3p0 in the same package)
+		mysql-connector-java-5.1.40-bin.jar
