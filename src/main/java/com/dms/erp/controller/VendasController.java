@@ -71,6 +71,7 @@ public class VendasController {
 	private ModelAndView getTabelaItensVenda() {
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
 		mv.addObject("itens", tabelaItensVenda.getItens());
+		mv.addObject("valorTotal", tabelaItensVenda.getValorTotal());
 		return mv;
 	}
 }

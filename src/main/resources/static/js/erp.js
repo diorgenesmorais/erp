@@ -120,11 +120,17 @@ Erp.Security = (function(){
 	
 	return Security;
 }());
+// setting locale
+numeral.locale('pt-br');
 
 Erp.formatarMoeda = function(valor){
-	numeral.locale('pt-br');
-	return numeral(valor).format('0,0.00');
+	// It is necessary that the value be of type number
+	return numeral(Number(valor)).format('0,0.00');
 };
+
+Erp.undoFormatting = function(valor){
+	return numeral(valor)._value;
+}
 
 $(function() {
 	new Erp.Formatter().enable();
