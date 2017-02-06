@@ -163,4 +163,5 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public DomainClassConverter<FormattingConversionService> domainClassConverter() {
 		return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
 	}
+
 }
