@@ -5,18 +5,51 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.dms.useful.pagination.PagesLimitControl;
 
+/**
+ * Wrapper a {@code Page} object
+ * 
+ * @author Diorgenes Morais
+ *
+ * @param <T>
+ *            the type of the model
+ * @version 1.0.2
+ */
 public class PageWrapper<T> {
 
 	private Page<T> page;
 	private UriComponentsBuilder uriBuilder;
 	private PagesLimitControl pageControl;
 
+	/**
+	 * Configures the default constructor with
+	 * {@link PagesLimitControl#LIMIT_MAX_PAGE}
+	 * 
+	 * @param page
+	 *            a {@link Pageable} object
+	 * @param request
+	 *            a {@link HttpServletRequest} object
+	 */
 	public PageWrapper(Page<T> page, HttpServletRequest request) {
+		this(page, request, PagesLimitControl.LIMIT_MAX_PAGE);
+	}
+
+	/**
+	 * Pattern constructor
+	 * 
+	 * @param page
+	 *            a {@link Pageable} object
+	 * @param request
+	 *            a {@link HttpServletRequest} object
+	 * @param numberOfMaximumPages
+	 *            limit the maximum number of pages
+	 */
+	public PageWrapper(Page<T> page, HttpServletRequest request, int numberOfMaximumPages) {
 		this.page = page;
 		String httpUrl = request.getRequestURL()
 				.append(request.getQueryString() != null ? "?" + request.getQueryString() : "").toString()
@@ -24,7 +57,8 @@ public class PageWrapper<T> {
 
 		this.uriBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
 
-		this.pageControl = new PagesLimitControl(this.page.getNumber(), this.page.getTotalPages());
+		this.pageControl = new PagesLimitControl(this.page.getNumber(), this.page.getTotalPages(),
+				numberOfMaximumPages);
 	}
 
 	public List<T> getContent() {
@@ -85,15 +119,17 @@ public class PageWrapper<T> {
 	public String urlOrderBy(String property) {
 		UriComponentsBuilder uriComponentBuilder = UriComponentsBuilder.fromUriString(uriBuilder.build().toString());
 
-		String sortValue = String.format("%s,%s", property, reverseOrder(property));
+		String sortValue = String.format("%s,%s", property, this.reverseOrder(property));
 
 		String uri = uriComponentBuilder.replaceQueryParam("sort", sortValue).build(true).encode().toUriString();
 
 		return uri;
 	}
 
-	/*
+	/**
 	 * Returns null if not ordered.
+	 * 
+	 * @return Order obtain a {@code Order} object or null
 	 */
 	private Order getOrder(String property) {
 		return page.getSort() != null ? page.getSort().getOrderFor(property) : null;
@@ -103,9 +139,9 @@ public class PageWrapper<T> {
 		return getOrder(property) != null;
 	}
 
-	/*
-	 * Returns true if ascending, returns false if not ordered, that is, being
-	 * false does not guarantee that it is not downward.
+	/**
+	 * @return Returns true if ascending, returns false if not ordered, that is,
+	 *         being false does not guarantee that it is not downward.
 	 */
 	public boolean isAscending(String property) {
 		Order order = getOrder(property);
@@ -113,13 +149,7 @@ public class PageWrapper<T> {
 	}
 
 	public String reverseOrder(String property) {
-		String direction = "asc";
-
-		if (isAscending(property)) {
-			direction = "desc";
-		}
-
-		return direction;
+		return this.isAscending(property) ? "desc" : "asc";
 	}
 
 }

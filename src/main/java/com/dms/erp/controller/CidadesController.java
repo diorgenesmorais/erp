@@ -73,7 +73,7 @@ public class CidadesController {
 			@PageableDefault(size = 5) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("cidades/pesquisaCidades");
 
-		PageWrapper<Cidade> page = new PageWrapper<>(cidades.filtrar(filter, pageable), httpServletRequest);
+		PageWrapper<Cidade> page = new PageWrapper<>(cidades.filtrar(filter, pageable), httpServletRequest, 0b00000111);
 		mv.addObject("states", UFBrasil.values());
 		mv.addObject("pagina", page);
 		return mv;
