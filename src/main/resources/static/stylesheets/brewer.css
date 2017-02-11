@@ -174,7 +174,7 @@
     content: "\f00c"; 
 }
 
-* Easy Autocomplete */
+/* Easy Autocomplete */
 .easy-autocomplete input {
 	border-radius: 2px !important;
 }
@@ -284,6 +284,10 @@
     
 	color: #fff;
     font-size: 1.3em;
+}
+/* valores negativos */
+.negative {
+	color: red;
 }
 
 @media (min-width: 768px) { /* screen-sm-min */

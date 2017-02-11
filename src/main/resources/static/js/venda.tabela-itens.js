@@ -71,7 +71,8 @@ Erp.TabelaItens = (function(){
 Erp.Venda = (function(){
 	function Venda(tabelaItens){
 		this.tabelaItens = tabelaItens;
-		this.valorTotalBox = $('.js-valor-total-box');
+		this.valorTotalBoxContainer = $('.js-valor-total-box');
+		this.valorTotalBox = $('#valor-total');
 		this.valorFreteInput = $('#valorFrete');
 		this.valorDescontoInput = $('#valorDesconto');
 		
@@ -104,6 +105,8 @@ Erp.Venda = (function(){
 	function onValoresAlterados(){
 		var valorTotal = this.valorTotalItens + this.valorFrete - this.valorDesconto;
 		this.valorTotalBox.html(Erp.formatarMoeda(valorTotal));
+		this.valorTotalBoxContainer.toggleClass('negative', valorTotal < 0);
+
 	}
 	
 	return Venda;
