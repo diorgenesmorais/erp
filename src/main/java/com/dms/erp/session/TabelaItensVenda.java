@@ -29,11 +29,11 @@ public class TabelaItensVenda {
 		ItemVenda itemVenda = null;
 		if (itemOptional.isPresent()) {
 			itemVenda = itemOptional.get();
-			itemVenda.setQtde(Integer.sum(itemVenda.getQtde(), qtde));
+			itemVenda.setQuantidade(Integer.sum(itemVenda.getQuantidade(), qtde));
 		} else {
 			itemVenda = new ItemVenda();
 			itemVenda.setCerveja(cerveja);
-			itemVenda.setQtde(qtde);
+			itemVenda.setQuantidade(qtde);
 			itemVenda.setValorUnitario(cerveja.getValor());
 			// criar uma lista decrescente
 			itens.add(0, itemVenda);
@@ -42,7 +42,7 @@ public class TabelaItensVenda {
 
 	public void alterarQuantidadeItem(Cerveja cerveja, Integer quantidade) {
 		ItemVenda itemVenda = findByCerveja(cerveja).get();
-		itemVenda.setQtde(quantidade);
+		itemVenda.setQuantidade(quantidade);
 	}
 
 	/**
