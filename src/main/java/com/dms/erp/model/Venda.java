@@ -35,7 +35,7 @@ public class Venda implements Serializable {
 	private LocalDateTime dataCriacao;
 	
 	@Column(name="data_entrega")
-	private LocalDateTime dataEntrega;
+	private LocalDateTime dataHoraEntrega;
 	
 	@Column(name="valor_frete", scale=8, precision=2,nullable=false)
 	private BigDecimal valorFrete;
@@ -81,12 +81,12 @@ public class Venda implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public LocalDateTime getDataEntrega() {
-		return dataEntrega;
+	public LocalDateTime getDataHoraEntrega() {
+		return dataHoraEntrega;
 	}
 
-	public void setDataEntrega(LocalDateTime dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataHoraEntrega(LocalDateTime dataHoraEntrega) {
+		this.dataHoraEntrega = dataHoraEntrega;
 	}
 
 	public BigDecimal getValorFrete() {
