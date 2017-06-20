@@ -64,7 +64,7 @@ public class Venda implements Serializable {
 	private LocalDate dataEntrega;
 
 	@Transient
-	private LocalTime horaEntrega;
+	private LocalTime horarioEntrega;
 
 	public Long getId() {
 		return id;
@@ -154,12 +154,12 @@ public class Venda implements Serializable {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public LocalTime getHoraEntrega() {
-		return horaEntrega;
+	public LocalTime getHorarioEntrega() {
+		return horarioEntrega;
 	}
 
-	public void setHoraEntrega(LocalTime horaEntrega) {
-		this.horaEntrega = horaEntrega;
+	public void setHorarioEntrega(LocalTime horarioEntrega) {
+		this.horarioEntrega = horarioEntrega;
 	}
 
 	@Override
@@ -187,4 +187,8 @@ public class Venda implements Serializable {
 		return true;
 	}
 
+	@Transient
+	public boolean isNova() {
+		return this.id == null;
+	}
 }

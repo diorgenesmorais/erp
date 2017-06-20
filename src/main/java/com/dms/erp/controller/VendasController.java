@@ -1,6 +1,7 @@
 package com.dms.erp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.config.WebConfig;
 import com.dms.erp.model.Cerveja;
+import com.dms.erp.model.Venda;
 import com.dms.erp.repository.Cervejas;
+import com.dms.erp.security.UserLoggedIn;
+import com.dms.erp.service.CadastroVendaService;
 import com.dms.erp.session.TabelaItensVenda;
 
 @Controller
@@ -25,8 +30,11 @@ public class VendasController {
 	@Autowired
 	private TabelaItensVenda tabelaItensVenda;
 
+	@Autowired
+	private CadastroVendaService cadastroVendaService;
+
 	@GetMapping("/nova")
-	public ModelAndView nova() {
+	public ModelAndView nova(Venda venda) {
 		ModelAndView mv = new ModelAndView("venda/cadastroVenda");
 
 		return mv;
@@ -59,7 +67,8 @@ public class VendasController {
 	 * Entregando o parâmetro com o retorno deste (findOne).
 	 * </pre>
 	 * 
-	 * @param cerveja objeto do domínio.
+	 * @param cerveja
+	 *            objeto do domínio.
 	 * @return {@code ModelAndView}
 	 */
 	@DeleteMapping("/item/{id}")
@@ -73,5 +82,16 @@ public class VendasController {
 		mv.addObject("itens", tabelaItensVenda.getItens());
 		mv.addObject("valorTotal", tabelaItensVenda.getValorTotal());
 		return mv;
+	}
+
+	@PostMapping("/nova")
+	public ModelAndView salvar(Venda venda, RedirectAttributes attributes, @AuthenticationPrincipal UserLoggedIn userLoggedIn) {
+
+		venda.setUsuario(userLoggedIn.getUsuario());
+		venda.setItens(tabelaItensVenda.getItens());
+		
+		cadastroVendaService.salvar(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
 	}
 }
