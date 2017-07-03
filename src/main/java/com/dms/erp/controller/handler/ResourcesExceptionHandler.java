@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.dms.erp.model.DetailedError;
+import com.dms.erp.dto.DetailedErrorDTO;
 import com.dms.erp.service.exception.RegisteredAlreadyException;
 import com.dms.erp.service.exception.ValidationException;
 
@@ -22,9 +22,9 @@ import com.dms.erp.service.exception.ValidationException;
 public class ResourcesExceptionHandler {
 
 	@ExceptionHandler(ValidationException.class)
-	public ResponseEntity<DetailedError> handlerValidationException(ValidationException e, HttpServletRequest request) {
+	public ResponseEntity<DetailedErrorDTO> handlerValidationException(ValidationException e, HttpServletRequest request) {
 
-		DetailedError erro = new DetailedError();
+		DetailedErrorDTO erro = new DetailedErrorDTO();
 		erro.setStatus(400L);
 		erro.setTitulo("Validation");
 		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
@@ -35,10 +35,10 @@ public class ResourcesExceptionHandler {
 	}
 
 	@ExceptionHandler(RegisteredAlreadyException.class)
-	public ResponseEntity<DetailedError> handlerRegisteredAlreadyException(RegisteredAlreadyException e,
+	public ResponseEntity<DetailedErrorDTO> handlerRegisteredAlreadyException(RegisteredAlreadyException e,
 			HttpServletRequest request) {
 
-		DetailedError erro = new DetailedError();
+		DetailedErrorDTO erro = new DetailedErrorDTO();
 		erro.setStatus(409L);
 		erro.setTitulo("Conflito - registro já existe");
 		erro.setMensagemDesenvolvedor("http://erros.erp.com/409");
@@ -49,10 +49,10 @@ public class ResourcesExceptionHandler {
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<DetailedError> handlerDataIntegrityViolationException(DataIntegrityViolationException e,
+	public ResponseEntity<DetailedErrorDTO> handlerDataIntegrityViolationException(DataIntegrityViolationException e,
 			HttpServletRequest request) {
 
-		DetailedError erro = new DetailedError();
+		DetailedErrorDTO erro = new DetailedErrorDTO();
 		erro.setStatus(400L);
 		erro.setTitulo("Data Integrity Violation");
 		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");
@@ -63,9 +63,9 @@ public class ResourcesExceptionHandler {
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<DetailedError> handlerIllegalArgumentException(IllegalArgumentException e,
+	public ResponseEntity<DetailedErrorDTO> handlerIllegalArgumentException(IllegalArgumentException e,
 			HttpServletRequest request) {
-		DetailedError erro = new DetailedError();
+		DetailedErrorDTO erro = new DetailedErrorDTO();
 		erro.setStatus(400L);
 		erro.setTitulo("Illegal Argument Exception");
 		erro.setMensagemDesenvolvedor("http://erros.erp.com/400");

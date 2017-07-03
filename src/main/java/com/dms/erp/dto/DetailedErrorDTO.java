@@ -1,6 +1,6 @@
-package com.dms.erp.model;
+package com.dms.erp.dto;
 
-public class DetailedError {
+public class DetailedErrorDTO {
 
 	private String titulo;
 	private Long status;
