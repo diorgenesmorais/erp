@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,19 +35,19 @@ public class Venda implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 9, nullable = false)
-	private StatusVenda status;
+	private StatusVenda status = StatusVenda.ORCAMENTO;
 
 	@Column(name = "data_criacao", nullable = false)
 	private LocalDateTime dataCriacao;
 
-	@Column(name = "data_entrega")
+	@Column(name = "data_hora_entrega")
 	private LocalDateTime dataHoraEntrega;
 
 	@Column(name = "valor_frete", scale = 8, precision = 2, nullable = false)
-	private BigDecimal valorFrete;
+	private BigDecimal valorFrete = BigDecimal.ZERO;
 
 	@Column(name = "valor_desconto", scale = 8, precision = 2, nullable = false)
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = BigDecimal.ZERO;
 
 	@Column(length = 200)
 	private String observacao;
@@ -57,8 +60,8 @@ public class Venda implements Serializable {
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "venda")
-	private List<ItemVenda> itens;
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	private List<ItemVenda> itens = new ArrayList<>();
 
 	@Transient
 	private LocalDate dataEntrega;
@@ -144,6 +147,7 @@ public class Venda implements Serializable {
 
 	public void setItens(List<ItemVenda> itens) {
 		this.itens = itens;
+		this.itens.forEach(i -> i.setVenda(this));
 	}
 
 	public LocalDate getDataEntrega() {
@@ -160,6 +164,32 @@ public class Venda implements Serializable {
 
 	public void setHorarioEntrega(LocalTime horarioEntrega) {
 		this.horarioEntrega = horarioEntrega;
+	}
+
+	/**
+	 * Obter valor total dos itens
+	 * 
+	 * @return a soma dos itens.
+	 */
+	public BigDecimal getValorTotalItens() {
+		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+	}
+
+	/**
+	 * Obter o total geral (soma dos itens + frete - desconto)
+	 * 
+	 * @return total cobrado.
+	 */
+	public BigDecimal getTotal() {
+		return getValorTotalItens().add(Optional.ofNullable(getValorFrete()).orElse(BigDecimal.ZERO))
+				.subtract(Optional.ofNullable(getValorDesconto()).orElse(BigDecimal.ZERO))
+				.setScale(2, BigDecimal.ROUND_HALF_DOWN);
+	}
+
+	public void addItem(ItemVenda item) {
+		if (item != null) {
+			this.itens.add(item);
+		}
 	}
 
 	@Override
@@ -191,4 +221,5 @@ public class Venda implements Serializable {
 	public boolean isNova() {
 		return this.id == null;
 	}
+
 }

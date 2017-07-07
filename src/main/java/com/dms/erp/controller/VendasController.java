@@ -3,8 +3,11 @@ package com.dms.erp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dms.erp.config.WebConfig;
+import com.dms.erp.controller.validator.VendaValidator;
 import com.dms.erp.model.Cerveja;
 import com.dms.erp.model.Venda;
 import com.dms.erp.repository.Cervejas;
@@ -33,10 +37,21 @@ public class VendasController {
 	@Autowired
 	private CadastroVendaService cadastroVendaService;
 
+	@Autowired
+	private VendaValidator vendaValidator;
+
+	@InitBinder
+	public void initValidator(WebDataBinder binder) {
+		binder.setValidator(vendaValidator);
+	}
+
 	@GetMapping("/nova")
 	public ModelAndView nova(Venda venda) {
 		ModelAndView mv = new ModelAndView("venda/cadastroVenda");
-
+		// if == null setUuid = UUID.randomUUID().toString();
+		mv.addObject("itens", venda.getItens());
+		//mv.addObject("valorTotal", venda.getTotal());
+		
 		return mv;
 	}
 
@@ -84,12 +99,22 @@ public class VendasController {
 		return mv;
 	}
 
+	/*
+	 * Posso validar no parametro: @Valid Venda venda
+	 * ou dentro do método: vendaValidator.validate(venda, result)
+	 */
 	@PostMapping("/nova")
-	public ModelAndView salvar(Venda venda, RedirectAttributes attributes, @AuthenticationPrincipal UserLoggedIn userLoggedIn) {
-
-		venda.setUsuario(userLoggedIn.getUsuario());
+	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UserLoggedIn userLoggedIn) {
 		venda.setItens(tabelaItensVenda.getItens());
 		
+		vendaValidator.validate(venda, result);
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+
+		venda.setUsuario(userLoggedIn.getUsuario());
+
 		cadastroVendaService.salvar(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");

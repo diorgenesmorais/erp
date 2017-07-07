@@ -25,11 +25,11 @@ public class ItemVenda implements Serializable {
 	private Long id;
 
 	@NotNull(message = "Quantidade não pode ser nula")
-	private Integer quantidade;
+	private Integer quantidade = new Integer(1);
 
 	@NotNull(message = "Deve ser informado o valor unitário")
 	@Column(name = "valor_unitario", scale = 10, precision = 2)
-	private BigDecimal valorUnitario;
+	private BigDecimal valorUnitario = BigDecimal.ZERO;
 
 	@ManyToOne
 	@JoinColumn(name = "cerveja_id", nullable = false)
@@ -81,7 +81,7 @@ public class ItemVenda implements Serializable {
 
 	@Transient
 	public BigDecimal getValorTotal() {
-		return this.valorUnitario.multiply(new BigDecimal(this.quantidade));
+		return this.valorUnitario.multiply(new BigDecimal(this.quantidade)).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 	}
 
 	@Override

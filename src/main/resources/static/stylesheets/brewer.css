@@ -289,6 +289,17 @@
 .negative {
 	color: red;
 }
+/*
+ * Quando houver erro de validação e a class has-error for inserida
+ * para alcançar o botão no <span class="input-group-btn">
+ * usar está combinação de classes.
+ * Dica de um aluno: Wederson Adriano Lourenço da Silva
+ */
+.has-error .input-group-btn .btn.btn-default {
+	color: #a94442;
+	border-color: #a94442;
+	background-color: #f2dede;
+}
 
 @media (min-width: 768px) { /* screen-sm-min */
 	.bw-tabela-item__painel-exclusao {

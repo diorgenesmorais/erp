@@ -8,6 +8,13 @@ Erp.TabelaItens = (function(){
 	
 	TabelaItens.prototype.init = function(){
 		this.autocomplete.on('item-selecionado', onSelectedItem.bind(this));
+		
+		bindQuantidade.call(this);
+		bindTabelaItens.call(this);
+	}
+	
+	TabelaItens.prototype.valorTotal = function(){
+		return this.tabelaCervejaContainer.data('valor');
 	}
 	
 	function onSelectedItem(event, item){
@@ -21,15 +28,27 @@ Erp.TabelaItens = (function(){
 		response.done(onTabelaCervejaContainer.bind(this));
 	}
 	
-	function onTabelaCervejaContainer(html){
-		this.tabelaCervejaContainer.html(html);
+	function bindQuantidade(){
 		var qtdeItem = $('.js-tabela-cerveja-qtde-item');
 		qtdeItem.on('change', onQtdeItemAlterado.bind(this));
 		qtdeItem.maskMoney({precision: 0, thousands: ''});
+	}
+	
+	function bindTabelaItens(){
 		var tabelaItens = $('.js-tabela-item');
 		tabelaItens.on('dblclick', onDesejaExcluir);
 		$('.js-exclusao-item-btn').on('click', onExclusaoItem.bind(this));
+		return tabelaItens;
+	}
+	
+	function onTabelaCervejaContainer(html){
+		this.tabelaCervejaContainer.html(html);
 		
+		bindQuantidade.call(this);
+		
+		bindTabelaItens.call(this);
+		
+		var tabelaItens = bindTabelaItens.call(this);
 		this.emitter.trigger('tabela-itens-atualizada', tabelaItens.data('valor-total'));
 	}
 	
@@ -76,15 +95,17 @@ Erp.Venda = (function(){
 		this.valorFreteInput = $('#valorFrete');
 		this.valorDescontoInput = $('#valorDesconto');
 		
-		this.valorTotalItens = 0;
-		this.valorFrete = 0;
-		this.valorDesconto = 0;
+		this.valorTotalItens = this.tabelaItens.valorTotal();
+		this.valorFrete = this.valorFreteInput.data('valor');
+		this.valorDesconto = this.valorDescontoInput.data('valor');
 	}
 	
 	Venda.prototype.init = function(){
 		this.tabelaItens.on('tabela-itens-atualizada', onTabelaItensAtual.bind(this));
 		this.valorFreteInput.on('keyup', onValorFreteAlterado.bind(this));
 		this.valorDescontoInput.on('keyup', onValorDescontoAlterado.bind(this));
+		
+		onValoresAlterados.call(this);
 	}
 	
 	function onTabelaItensAtual(event, valorTotalItens){
@@ -103,7 +124,7 @@ Erp.Venda = (function(){
 	}
 	
 	function onValoresAlterados(){
-		var valorTotal = this.valorTotalItens + this.valorFrete - this.valorDesconto;
+		var valorTotal = numeral(this.valorTotalItens).value() + numeral(this.valorFrete).value() - numeral(this.valorDesconto).value();
 		this.valorTotalBox.html(Erp.formatarMoeda(valorTotal));
 		this.valorTotalBoxContainer.toggleClass('negative', valorTotal < 0);
 
