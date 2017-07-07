@@ -8,7 +8,7 @@ Erp.TabelaItens = (function(){
 	
 	TabelaItens.prototype.init = function(){
 		this.autocomplete.on('item-selecionado', onSelectedItem.bind(this));
-		
+		// se houver um erro precisa chamar novamente para garantir as funcionalidades
 		bindQuantidade.call(this);
 		bindTabelaItens.call(this);
 	}
@@ -95,9 +95,10 @@ Erp.Venda = (function(){
 		this.valorFreteInput = $('#valorFrete');
 		this.valorDescontoInput = $('#valorDesconto');
 		
-		this.valorTotalItens = this.tabelaItens.valorTotal();
-		this.valorFrete = this.valorFreteInput.data('valor');
-		this.valorDesconto = this.valorDescontoInput.data('valor');
+		// valor da soma dos itens (subtotal)
+		this.valorTotalItens = Erp.undoFormatting(this.tabelaItens.valorTotal());
+		this.valorFrete = Erp.undoFormatting(this.valorFreteInput.data('valor'));
+		this.valorDesconto = Erp.undoFormatting(this.valorDescontoInput.data('valor'));
 	}
 	
 	Venda.prototype.init = function(){
@@ -109,6 +110,7 @@ Erp.Venda = (function(){
 	}
 	
 	function onTabelaItensAtual(event, valorTotalItens){
+		// Number precisa (|| 0) por causa de undefined
 		this.valorTotalItens = Number(valorTotalItens || 0);
 		onValoresAlterados.call(this);
 	}
@@ -124,7 +126,7 @@ Erp.Venda = (function(){
 	}
 	
 	function onValoresAlterados(){
-		var valorTotal = numeral(this.valorTotalItens).value() + numeral(this.valorFrete).value() - numeral(this.valorDesconto).value();
+		var valorTotal = this.valorTotalItens + this.valorFrete - this.valorDesconto;
 		this.valorTotalBox.html(Erp.formatarMoeda(valorTotal));
 		this.valorTotalBoxContainer.toggleClass('negative', valorTotal < 0);
 
