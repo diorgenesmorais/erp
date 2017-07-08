@@ -103,12 +103,10 @@ public class VendasController {
 	 * Posso validar no parametro: @Valid Venda venda
 	 * ou dentro do método: vendaValidator.validate(venda, result)
 	 */
-	@PostMapping("/nova")
+	@PostMapping(value = "/nova", params = "salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes,
 			@AuthenticationPrincipal UserLoggedIn userLoggedIn) {
-		venda.setItens(tabelaItensVenda.getItens());
-		
-		vendaValidator.validate(venda, result);
+		validarVenda(venda, result);
 		if (result.hasErrors()) {
 			return nova(venda);
 		}
@@ -118,5 +116,41 @@ public class VendasController {
 		cadastroVendaService.salvar(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
+	}
+
+	@PostMapping(value = "/nova", params = "emitir" )
+	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UserLoggedIn userLoggedIn) {
+		validarVenda(venda, result);
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+
+		venda.setUsuario(userLoggedIn.getUsuario());
+
+		cadastroVendaService.emitir(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva e emitida com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+	
+	@PostMapping(value = "/nova", params = "enviarEmail")
+	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes,
+			@AuthenticationPrincipal UserLoggedIn userLoggedIn) {
+		validarVenda(venda, result);
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+
+		venda.setUsuario(userLoggedIn.getUsuario());
+
+		cadastroVendaService.salvar(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+	
+	private void validarVenda(Venda venda, BindingResult result) {
+		venda.setItens(tabelaItensVenda.getItens());
+		
+		vendaValidator.validate(venda, result);
 	}
 }
