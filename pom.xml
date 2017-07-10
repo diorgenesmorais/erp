@@ -8,6 +8,19 @@
 
 	<packaging>war</packaging>
 
+	<description>
+		Projeto web com cadastro e pesquisa e com inserção de foto de produtos.
+		
+		Este projeto é baseado no curso de Spring MVC da Algaworks.
+	</description>
+	
+	<developers>
+		<developer>
+			<name>Diorgenes Morais</name>
+			<email>diorgenesmorais@gmail.com</email>
+		</developer>
+	</developers>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
