@@ -18,6 +18,14 @@
 				<div class="col-xs-10">
 					<h1>Cadastro de venda</h1>
 				</div>
+				
+				<div class="col-sm-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-default" th:href="@{/vendas}">
+							<i class="glyphicon glyphicon-plus-sign"></i><span class="hidden-xs hidden-sm">Pesquisa</span>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -130,12 +138,12 @@
 					<div class="row">
 						<div class="form-group  col-sm-3" erp:classforerror="dataEntrega">
 							<label class="control-label" for="dataEntrega">Data da entrega</label>
-							<input type="text" class="form-control" id="dataEntrega" th:field="*{dataEntrega}" />
+							<input type="text" class="form-control js-date" id="dataEntrega" th:field="*{dataEntrega}" />
 						</div>
 						
 						<div class="form-group  col-sm-3">
 							<label class="control-label" for="horarioEntrega">Horário de entrega</label>
-							<input type="text" class="form-control" id="horarioEntrega" th:field="*{horarioEntrega}" />
+							<input type="time" class="form-control js-time" id="horarioEntrega" th:field="*{horarioEntrega}" />
 						</div>
 					</div>
 					

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -190,6 +191,11 @@ public class Venda implements Serializable {
 		if (item != null) {
 			this.itens.add(item);
 		}
+	}
+
+	public String getDataCriacaoFormatted() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm");
+		return this.dataCriacao.format(formatter);
 	}
 
 	@Override

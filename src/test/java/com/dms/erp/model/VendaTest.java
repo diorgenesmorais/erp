@@ -24,7 +24,7 @@ public class VendaTest {
 	
 	@Test
 	public void deveObterUmTotalDeVenda() throws Exception {
-		BigDecimal expected = new BigDecimal(24.0);
+		BigDecimal expected = new BigDecimal(24.0).setScale(2, BigDecimal.ROUND_HALF_DOWN);
 		ItemVenda item = new ItemVenda();
 		item.setQuantidade(4);
 		item.setValorUnitario(new BigDecimal(6.0));

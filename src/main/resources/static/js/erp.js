@@ -94,6 +94,7 @@ Erp.MaskDate = (function() {
 	}
 	/* Attributes of datepicker see: https://bootstrap-datepicker.readthedocs.io/en/latest/options.html */
 	MaskDate.prototype.init = function() {
+		// this.inputDate.mask('00/00/0000', {placeholder: "__/__/____"});
 		this.inputDate.mask('00/00/0000');
 		this.inputDate.datepicker({
 			orientation : 'bottom',
@@ -132,6 +133,18 @@ Erp.undoFormatting = function(valor){
 	return numeral(valor)._value;
 }
 
+Erp.MaskTime = (function(){
+	function MaskTime(){
+		this.inputTime = $('.js-time');
+	}
+	
+	MaskTime.prototype.init = function(){
+		this.inputTime.mask('00:00');
+	}
+	
+	return MaskTime;
+}());
+
 $(function() {
 	new Erp.Formatter().enable();
 
@@ -144,4 +157,7 @@ $(function() {
 	new Erp.MaskDate().init();
 	
 	new Erp.Security().init();
+	
+	new Erp.MaskTime().init();
+	
 });

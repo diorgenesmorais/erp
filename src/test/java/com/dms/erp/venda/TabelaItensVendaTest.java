@@ -52,7 +52,7 @@ public class TabelaItensVendaTest {
 		tabelaItensVenda.adicionarItem(cerveja, 1);
 		tabelaItensVenda.adicionarItem(becks, 3);
 
-		assertEquals(new BigDecimal("43.1"), tabelaItensVenda.getValorTotal());
+		assertEquals(new BigDecimal("43.10"), tabelaItensVenda.getValorTotal());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class TabelaItensVendaTest {
 		// garantir que só tem um item
 		assertEquals(1, tabelaItensVenda.getItens().size());
 		// o motivo real deste teste
-		assertEquals(new BigDecimal("13.5"), tabelaItensVenda.getValorTotal());
+		assertEquals(new BigDecimal("13.50"), tabelaItensVenda.getValorTotal());
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class TabelaItensVendaTest {
 		tabelaItensVenda.removeItem(becks);
 
 		assertEquals(2, tabelaItensVenda.getItens().size());
-		assertEquals(new BigDecimal("22.5"), tabelaItensVenda.getValorTotal());
+		assertEquals(new BigDecimal("22.50"), tabelaItensVenda.getValorTotal());
 	}
 
 	@Test(expected = NoSuchElementException.class)
