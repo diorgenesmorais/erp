@@ -1,11 +1,8 @@
 package com.dms.erp.repository.helper.venda;
 
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-=======
->>>>>>> fd3d2f4... venda test
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -49,7 +46,6 @@ public class VendasImpl implements VendasQueries {
 	private void addFiltro(Criteria criteria, VendaFilter filter) {
 		// para ordenação pelo nome
 		criteria.createAlias("cliente", "c");
-<<<<<<< HEAD
 
 		if (filter != null) {
 			if(filter.getId() != null) {
@@ -72,12 +68,10 @@ public class VendasImpl implements VendasQueries {
 			if(filter.getValorTotalMaximo() != null) {
 				criteria.add(Restrictions.le("valorTotal", filter.getValorTotalMaximo()));
 			}*/
-=======
 		
 
 		if (filter != null) {
 			criteria.add(Restrictions.eqOrIsNull("status", filter.getStatusVenda()));
->>>>>>> fd3d2f4... venda test
 		}
 	}
 }
