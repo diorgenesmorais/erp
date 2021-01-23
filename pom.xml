@@ -58,7 +58,7 @@
 		<guava.version>19.0</guava.version>
 
 		<!-- Apache Bean Utils -->
-		<commons-beanutils.version>1.9.2</commons-beanutils.version>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		
 		<!-- Spring Security -->
 		<spring-security.version>4.1.1.RELEASE</spring-security.version>
