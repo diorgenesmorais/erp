@@ -68,7 +68,7 @@
 		<httpclient.version>4.5.2</httpclient.version>
 
 		<!-- Cache - Guava -->
-		<guava.version>19.0</guava.version>
+		<guava.version>24.1.1</guava.version>
 
 		<!-- Apache Bean Utils -->
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
