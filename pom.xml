@@ -45,7 +45,7 @@
 		<thymeleaf-layout-dialect.version>2.1.2</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
-		<log4j.version>2.14.0</log4j.version>
+		<log4j.version>2.17.0</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 
 		<!-- JPA / Hibernate e Spring data JPA - Is contained in the useful-lib package, see pom.xml -->
