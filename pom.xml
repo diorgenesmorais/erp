@@ -32,7 +32,7 @@
 		<flyway-maven-plugin.version>4.0.2</flyway-maven-plugin.version>
 		<mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 
-		<spring-framework.version>4.3.3.RELEASE</spring-framework.version>
+		<spring-framework.version>4.3.29.RELEASE</spring-framework.version>
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
 		<!-- Thymeleaf -->
