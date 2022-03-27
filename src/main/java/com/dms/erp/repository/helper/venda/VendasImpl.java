@@ -1,8 +1,17 @@
 package com.dms.erp.repository.helper.venda;
 
+<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+=======
+<<<<<<< HEAD
+=======
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+>>>>>>> a9d3275... venda test
+>>>>>>> 39eb75e... update repository
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -46,6 +55,7 @@ public class VendasImpl implements VendasQueries {
 	private void addFiltro(Criteria criteria, VendaFilter filter) {
 		// para ordenação pelo nome
 		criteria.createAlias("cliente", "c");
+<<<<<<< HEAD
 
 		if (filter != null) {
 			if(filter.getId() != null) {
@@ -68,10 +78,37 @@ public class VendasImpl implements VendasQueries {
 			if(filter.getValorTotalMaximo() != null) {
 				criteria.add(Restrictions.le("valorTotal", filter.getValorTotalMaximo()));
 			}*/
+=======
+<<<<<<< HEAD
+>>>>>>> 39eb75e... update repository
 		
 
 		if (filter != null) {
 			criteria.add(Restrictions.eqOrIsNull("status", filter.getStatusVenda()));
+=======
+
+		if (filter != null) {
+			if(filter.getId() != null) {
+				criteria.add(Restrictions.eq("id", filter.getId()));
+			}
+			
+			if (filter.getStatusVenda() != null) {
+				criteria.add(Restrictions.eqOrIsNull("status", filter.getStatusVenda()));
+			}
+			
+			if(filter.getDataInicial() != null) {
+				LocalDateTime desde = LocalDateTime.of(filter.getDataInicial(), LocalTime.of(0, 0));
+				criteria.add(Restrictions.ge("dataCriacao", desde));
+			}
+			
+			/*if(filter.getValorTotalMinimo() != null) {
+				criteria.add(Restrictions.ge("valorTotal", filter.getValorTotalMinimo()));
+			}
+			
+			if(filter.getValorTotalMaximo() != null) {
+				criteria.add(Restrictions.le("valorTotal", filter.getValorTotalMaximo()));
+			}*/
+>>>>>>> a9d3275... venda test
 		}
 	}
 }
